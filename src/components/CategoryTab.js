@@ -42,11 +42,10 @@ const TabContainer = styled.div`
   }
 `;
 
-
 const TabBox = styled.div`
   display: flex;
   width: 381px;
-  height: 34px;
+  height: 28px;
   margin-top: 8px;
   padding-left: 20px;
   border-bottom: 2px solid #D7352A;
@@ -58,7 +57,7 @@ const TabItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 7px 10px 8px;
+  padding: 5px 10px 6px;
   font-weight: 400;
   font-size: 14px;
   color: #8C8C8C;

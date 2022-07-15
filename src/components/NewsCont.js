@@ -57,12 +57,11 @@ const RelatedTitle = styled(Title)`
 
 
 
-const NewsCont = ({newsIdSet, i}) => {
+const NewsCont = ({i}) => {
 
-  let news = useSelector(state => state.news);
+  let news = useSelector(state => state.news.data);
   let navigate = useNavigate();
 
-  // newsIdSet();
   
   return(
     <>
@@ -77,11 +76,11 @@ const NewsCont = ({newsIdSet, i}) => {
       </NewsItem>
       <Line />
       <RelatedNews>
-        <RelatedTitle>{news[i].title}</RelatedTitle>
+        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
       </RelatedNews>
       <Line />
       <RelatedNews style={{marginBottom: '32px'}}>
-        <RelatedTitle>{news[i].title}</RelatedTitle>
+        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
       </RelatedNews>
     </>
   );

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { newsData } from "../store.js";
+import { newsData, newsIdSet } from "../store.js";
 import axios from "axios";
 import styled from 'styled-components';
 import NewsCont from "../components/NewsCont.js";
@@ -18,11 +18,11 @@ const TopFixedItem = styled.div`
 `;
 
 const NewsContBox = styled.div`
-  margin-top: 100px;
+  margin-top: 94px;
 `;
 
 const LoadingMsg = styled.p`
-  width: 100%;
+  width: 360px;
   text-align: center;
   margin: 0;
   padding: 10px;
@@ -32,7 +32,7 @@ const LoadingMsg = styled.p`
 const MainNews = () => {
 
   let dispatch = useDispatch();
-  let news = useSelector(state => state.news); // 뉴스(redux)
+  let news = useSelector(state => state.news.data); // 뉴스(redux)
   let [loading, setLoading] = useState(true); // 로딩중
   let [category, setCategory] = useState(''); // 카테고리
 
@@ -46,8 +46,7 @@ const MainNews = () => {
         const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData)); // redux로 결과 전달
-        
-        // newsIdSet(); // detail page를 위한 id값 부여하는 함수
+        dispatch(newsIdSet(JsonData)); // redux로 결과 전달
       }
       catch (err){
         console.log('오류가 발생했습니다.');
@@ -62,11 +61,6 @@ const MainNews = () => {
   if(!news){
     return null;
   }
-
-  // detail page를 위한 id값 부여하는 함수
-  /* const newsIdSet = () => {
-    news.map((a,i) => news[i].source.id = i);
-  }; */
   
 
   return(
@@ -83,9 +77,7 @@ const MainNews = () => {
             : null 
           }
           {
-            news.map((a, i) => 
-              <NewsCont  /* newsIdSet={newsIdSet} */ i={i}/>
-            )
+            news.map((a, i) => <NewsCont i={i}/>)
           }
         </NewsContBox>
       </div>

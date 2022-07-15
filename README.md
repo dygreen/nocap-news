@@ -24,22 +24,46 @@ _Main_
 * `useEffect`를 통해 카테고리 탭메뉴가 변경될 때마다 API 정보 업데이트하기
 ```javascript
 useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true); // 기사를 받아오는 중
+  const fetchData = async () => {
+    setLoading(true); // 기사를 받아오는 중
 
-      try {
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
-        const JsonData = res.data.articles;
-        setNews(JsonData);
-      }
-      catch (err){
-        alert(err);
-      }
-
-      setLoading(false); // 받아오기 완료/실패
+    try {
+      const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
+      const JsonData = res.data.articles;
+      dispatch(newsData(JsonData), newsIdSet(JsonData)); // redux로 결과 전달
     }
-    fetchData();
-  },[category]);
+    catch (err){
+      console.log('오류가 발생했습니다.');
+    }
+
+    setLoading(false); // 받아오기 완료/실패
+  }
+  fetchData();
+},[category]);
+```
+* 여러 컴포넌트에서 사용하는 state는 `Redux(redux toolkit)`로 관리
+```javascript
+let news = createSlice({
+  name : 'news',
+  initialState : {
+    loading : 'first',
+    data : [],
+  },
+  reducers : {
+    newsData(state, action){ // news 데이터 셋팅
+      if (state.loading === 'first'){ /* 두번째 reducer를 실행하기 전 데이터 값이 있어야 하므로 if문 실행 */
+        state.data = action.payload;
+        state.loading = 'second'
+      }
+    },
+    newsIdSet(state, action){ // detail page를 위한 id값 셋팅
+      if (state.loading === 'second'){
+        action.payload.map((a,val) => action.payload[val].source.id = val);
+        state.data = action.payload;
+      }
+    },
+  },
+});
 ```
 * 뉴스 정보를 불러오는 동안 로딩중 텍스트 표시
 * `map()`을 활용해 뉴스 정보 + 카테고리 표시
@@ -55,16 +79,8 @@ useEffect(() => {
 ***
 
 _Detail_
-* 뉴스를 클릭했을 때 해당 뉴스를 자세히 보여주기 위해 Open API 데이터에 id 값 추가 -> id 값을 url의 맨 뒤에 넣어 `useParams()`를 사용할 수 있도록 만듦
-```javascript
-// detail page를 위한 id값 부여하는 함수
-const newsIdSet = () => {
-  news.map((a,i) => news[i].source.id = i);
-};
+* (Redux) 뉴스를 클릭했을 때 해당 뉴스를 자세히 보여주기 위해 Open API 데이터에 id 값 추가 -> id 값을 url의 맨 뒤에 넣어 `useParams()`를 사용할 수 있도록 만듦
 
-// 뉴스를 클릭하면 id 값이 url 경로 맨 뒤에 추가되도록
-<NewsItem onClick={() => { navigate('/detail/'+news.source.id) }}>
-```
 
 <!-- ***
 ## 코드 수정 📝
