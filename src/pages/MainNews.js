@@ -1,11 +1,13 @@
 /* 메인화면: 뉴스 리스트 보여줌 */
 
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { newsData } from "../store.js";
 import axios from "axios";
 import styled from 'styled-components';
-import NewsCont from "../components/NewsCont";
-import CategoryTab from "../components/CategoryTab";
-import TopBars from "../components/TopBars";
+import NewsCont from "../components/NewsCont.js";
+import CategoryTab from "../components/CategoryTab.js";
+import TopBars from "../components/TopBars.js";
 
 
 const TopFixedItem = styled.div`
@@ -29,7 +31,8 @@ const LoadingMsg = styled.p`
 
 const MainNews = () => {
 
-  let [news, setNews] = useState(null); // 뉴스 데이터
+  let dispatch = useDispatch();
+  let news = useSelector(state => state.news); // 뉴스(redux)
   let [loading, setLoading] = useState(true); // 로딩중
   let [category, setCategory] = useState(''); // 카테고리
 
@@ -42,11 +45,12 @@ const MainNews = () => {
       try {
         const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
         const JsonData = res.data.articles;
-        setNews(JsonData);
-        newsIdSet(); // detail page를 위한 id값 부여하는 함수
+        dispatch(newsData(JsonData)); // redux로 결과 전달
+        
+        // newsIdSet(); // detail page를 위한 id값 부여하는 함수
       }
       catch (err){
-        alert('오류가 발생했습니다.');
+        console.log('오류가 발생했습니다.');
       }
 
       setLoading(false); // 받아오기 완료/실패
@@ -60,9 +64,9 @@ const MainNews = () => {
   }
 
   // detail page를 위한 id값 부여하는 함수
-  const newsIdSet = () => {
+  /* const newsIdSet = () => {
     news.map((a,i) => news[i].source.id = i);
-  };
+  }; */
   
 
   return(
@@ -79,8 +83,8 @@ const MainNews = () => {
             : null 
           }
           {
-            news.map((news,i) => 
-              <NewsCont news={news} newsIdSet={newsIdSet} key={i}/>
+            news.map((a, i) => 
+              <NewsCont  /* newsIdSet={newsIdSet} */ i={i}/>
             )
           }
         </NewsContBox>

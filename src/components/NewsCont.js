@@ -1,6 +1,7 @@
 /* (메인) 뉴스 컨텐츠 html */
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import styled from 'styled-components';
 
 const NewsItem = styled.div`
@@ -56,30 +57,31 @@ const RelatedTitle = styled(Title)`
 
 
 
-const NewsCont = ({news, i, newsIdSet}) => {
+const NewsCont = ({newsIdSet, i}) => {
 
+  let news = useSelector(state => state.news);
   let navigate = useNavigate();
 
-  newsIdSet();
+  // newsIdSet();
   
   return(
     <>
-      <NewsItem onClick={() => { navigate('/detail/'+news.source.id) }}>
+      <NewsItem onClick={() => { navigate('/detail/'+news[i].source.id) }}>
         <Img src={
-          news.urlToImage == null
+          news[i].urlToImage == null
           ? process.env.PUBLIC_URL + '/image/default_img.png'
-          : news.urlToImage
+          : news[i].urlToImage
         }/>
-        <Title>{news.title}</Title>
-        <Descript>{news.description}</Descript>
+        <Title>{news[i].title}</Title>
+        <Descript>{news[i].description}</Descript>
       </NewsItem>
       <Line />
       <RelatedNews>
-        <RelatedTitle>{news.title}</RelatedTitle>
+        <RelatedTitle>{news[i].title}</RelatedTitle>
       </RelatedNews>
       <Line />
       <RelatedNews style={{marginBottom: '32px'}}>
-        <RelatedTitle>{news.title}</RelatedTitle>
+        <RelatedTitle>{news[i].title}</RelatedTitle>
       </RelatedNews>
     </>
   );
