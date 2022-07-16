@@ -1,4 +1,4 @@
-/* (메인) 탑 바 - 로고, 메뉴 아이콘 */
+/* 탑 바(기본틀) - 로고  */
 
 import styled from 'styled-components';
 
@@ -6,13 +6,7 @@ const TopBarBox = styled.div`
   width: 100%;
   height: 56px;
   position: relative;
-`;
-
-const MenuIcon = styled.img`
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  cursor: pointer;
+  background: #fff;
 `;
 
 const Logo = styled.img`
@@ -22,15 +16,14 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-const TopBars = () => {
+const TopBar = () => {
 
   return(
     <TopBarBox>
       <Logo src={process.env.PUBLIC_URL + '/image/logo.png'}/>
-      <MenuIcon src={process.env.PUBLIC_URL + '/image/menu_icon.png'}/>
     </TopBarBox>
   );
 
 }
 
-export default TopBars;
+export default TopBar;

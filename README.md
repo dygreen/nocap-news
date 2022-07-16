@@ -80,7 +80,22 @@ let news = createSlice({
 
 _Detail_
 * (Redux) 뉴스를 클릭했을 때 해당 뉴스를 자세히 보여주기 위해 Open API 데이터에 id 값 추가 -> id 값을 url의 맨 뒤에 넣어 `useParams()`를 사용할 수 있도록 만듦
+* Main -> Detail 페이지로 이동시 스크롤이 Main 페이지에서 있었던 위치가 그대로 유지되는 것을 해결하기 위해 `useLocation()` 사용(index.js에 적용)
+```javascript
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+```
+* `useNavigate()`를 사용하여 Detail 페이지 이동 및 뒤로가기 버튼 구현
 
 <!-- ***
 ## 코드 수정 📝

@@ -7,18 +7,18 @@ import axios from "axios";
 import styled from 'styled-components';
 import NewsCont from "../components/NewsCont.js";
 import CategoryTab from "../components/CategoryTab.js";
-import TopBars from "../components/TopBars.js";
+import TopBarMain from "../components/TopBarMain.js";
 
 
 const TopFixedItem = styled.div`
   position: fixed;
-  top: 0;
+  top: 24px;
   left: 0;
   background: #fff;
 `;
 
 const NewsContBox = styled.div`
-  margin-top: 94px;
+  margin-top: 118px;
 `;
 
 const LoadingMsg = styled.p`
@@ -61,13 +61,14 @@ const MainNews = () => {
   if(!news){
     return null;
   }
-  
+
+
 
   return(
     <>
       <div className="row">
         <TopFixedItem>
-          <TopBars/>
+          <TopBarMain/>
           <CategoryTab setCategory={setCategory}/>
         </TopFixedItem>
         <NewsContBox>

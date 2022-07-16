@@ -90,6 +90,7 @@ const CategoryTab = ({setCategory}) => {
               currentTab === i ? selectedTab : null
             }
             onClick={() => {
+              window.scrollTo(0, 0); // 카테고리 탭을 누를 때마다 페이지 맨 위로
               setCategory(tabs.name);
               selectTabHandler(i);
             }} 
