@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 
+
 const categories = [ /* 카테고리 array */
   { 
     name : '', 
@@ -72,12 +73,32 @@ const selectedTab = {
 };
 
 
+// localStorage
+const jsonLocalStorage = {
+  setItem: (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+  getItem: (key) => {
+    return JSON.parse(localStorage.getItem(key));
+  },
+  removeItem: (key) => {
+    localStorage.removeItem(key);
+  }
+};
+
+
+
 const CategoryTab = ({setCategory}) => {
 
-  const [currentTab, setCurrentTab] = useState(0); 
+  const [currentTab, setCurrentTab] = useState(jsonLocalStorage.getItem('num')); 
 
   const selectTabHandler = (index) => {
     setCurrentTab(index);
+  };
+
+  const settingLocal = (key, value) => {
+    jsonLocalStorage.removeItem(key);
+    jsonLocalStorage.setItem(key, value);
   };
 
 
@@ -91,8 +112,12 @@ const CategoryTab = ({setCategory}) => {
             }
             onClick={() => {
               window.scrollTo(0, 0); // 카테고리 탭을 누를 때마다 페이지 맨 위로
-              setCategory(tabs.name);
-              selectTabHandler(i);
+              // 선택한 카테고리 저장
+              settingLocal('category', tabs.name);
+              setCategory(jsonLocalStorage.getItem('category'));
+              // 선택한 카테고리 index 저장(style)
+              settingLocal('num', i);
+              selectTabHandler(jsonLocalStorage.getItem('num'));
             }} 
             key={i}
             >{tabs.text}</TabItem>

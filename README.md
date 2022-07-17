@@ -69,33 +69,59 @@ let news = createSlice({
 * `map()`을 활용해 뉴스 정보 + 카테고리 표시
 * 탭 메뉴: 탭 메뉴를 클릭하면 해당 제목으로 `state(=category)`를 변경해 내용 표시 + 클릭 배경 효과 적용
 * 뉴스 이미지가 보이지 않는 경우 default image 표시
-```javascript
-<Img src={
-  news.urlToImage == null
-  ? process.env.PUBLIC_URL + '/image/default_img.png'
-  : news.urlToImage
-}/>
-```
+
+
 ***
 
 _Detail_
 * (Redux) 뉴스를 클릭했을 때 해당 뉴스를 자세히 보여주기 위해 Open API 데이터에 id 값 추가 -> id 값을 url의 맨 뒤에 넣어 `useParams()`를 사용할 수 있도록 만듦
 * Main -> Detail 페이지로 이동시 스크롤이 Main 페이지에서 있었던 위치가 그대로 유지되는 것을 해결하기 위해 `useLocation()` 사용(index.js에 적용)
+* `useNavigate()`를 사용하여 Detail 페이지 이동 및 뒤로가기 버튼 구현
+* `localStorage`를 사용하여 Detail 페이지에서 뒤로가기 버튼을 눌렀을 때, 선택했던 카테고리/스크롤 위치 유지하기
 ```javascript
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+const CategoryTab = ({setCategory}) => {
 
-export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const [currentTab, setCurrentTab] = useState(jsonLocalStorage.getItem('num')); 
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  const selectTabHandler = (index) => {
+    setCurrentTab(index);
+  };
 
-  return null;
+  const settingLocal = (key, value) => {
+    jsonLocalStorage.removeItem(key);
+    jsonLocalStorage.setItem(key, value);
+  };
+
+
+  return(
+    <TabContainer>
+      <TabBox>
+        {
+          categories.map((tabs,i) => 
+            <TabItem style={
+              currentTab === i ? selectedTab : null
+            }
+            onClick={() => {
+              window.scrollTo(0, 0); // 카테고리 탭을 누를 때마다 페이지 맨 위로
+              // 선택한 카테고리 저장
+              settingLocal('category', tabs.name);
+              setCategory(jsonLocalStorage.getItem('category'));
+              // 선택한 카테고리 index 저장(style)
+              settingLocal('num', i);
+              selectTabHandler(jsonLocalStorage.getItem('num'));
+            }} 
+            key={i}
+            >{tabs.text}</TabItem>
+          )
+        }
+      </TabBox>
+    </TabContainer>
+  );
+
 }
 ```
-* `useNavigate()`를 사용하여 Detail 페이지 이동 및 뒤로가기 버튼 구현
+
+
 
 <!-- ***
 ## 코드 수정 📝

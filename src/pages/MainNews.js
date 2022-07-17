@@ -29,12 +29,21 @@ const LoadingMsg = styled.p`
 `;
 
 
+// localStorage
+const jsonLocalStorage = {
+  getItem: (key) => {
+    return JSON.parse(localStorage.getItem(key));
+  }
+};
+
+
+
 const MainNews = () => {
 
   let dispatch = useDispatch();
   let news = useSelector(state => state.news.data); // 뉴스(redux)
   let [loading, setLoading] = useState(true); // 로딩중
-  let [category, setCategory] = useState(''); // 카테고리
+  let [category, setCategory] = useState(jsonLocalStorage.getItem('category')); // 카테고리
 
 
   // useEffect: 페이지가 렌더링되면 뉴스 데이터를 불러오기(axios)
@@ -63,7 +72,6 @@ const MainNews = () => {
   }
 
 
-
   return(
     <>
       <div className="row">
@@ -78,12 +86,14 @@ const MainNews = () => {
             : null 
           }
           {
-            news.map((a, i) => <NewsCont i={i}/>)
+            news.map((a, i) => <NewsCont i={i} key={i}/>)
           }
         </NewsContBox>
       </div>
     </>
   );
+
+
 }
 
 
