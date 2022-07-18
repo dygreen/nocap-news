@@ -87,7 +87,6 @@ const RelatedTitle = styled.div`
 
 
 
-
 const DetailNews = () => {
 
   let news = useSelector(state => state.news.data);
@@ -97,6 +96,7 @@ const DetailNews = () => {
   return(
     <>
       <TopBarDetail/>
+      
       <DetailCont>
         <Title>{clickedNews.title}</Title>
         <Published>{clickedNews.publishedAt}</Published>
@@ -107,6 +107,7 @@ const DetailNews = () => {
         }/>
         <Url>{clickedNews.url}</Url>
         <Descript>{clickedNews.description}</Descript>
+
         <AuthorBox>
           <img src={process.env.PUBLIC_URL + '/image/author.png'}/>
           <AuthorInfo>
@@ -114,9 +115,13 @@ const DetailNews = () => {
             <p>{clickedNews.source.name}</p>
           </AuthorInfo>
         </AuthorBox>
+
         <Line />
+
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
+        
         <Line />
+
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
       </DetailCont>
     </>

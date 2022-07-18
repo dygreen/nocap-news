@@ -40,14 +40,12 @@ const TopBarDetail = () => {
   let navigate = useNavigate();
 
   return (
-    <>
-      <TopFixedItem>
-        <TopBar/>
-        <BackIcon src={process.env.PUBLIC_URL + '/image/arrow_back.png'} onClick={() => { navigate(-1) }}/>
-        <CommentIcon src={process.env.PUBLIC_URL + '/image/comment.png'}/>
-        <BookMarkIcon src={process.env.PUBLIC_URL + '/image/bookmark_line.png'}/>
-      </TopFixedItem>
-    </>
+    <TopFixedItem>
+      <TopBar/>
+      <BackIcon src={process.env.PUBLIC_URL + '/image/arrow_back.png'} onClick={() => { navigate(-1) }}/>
+      <CommentIcon src={process.env.PUBLIC_URL + '/image/comment.png'}/>
+      <BookMarkIcon src={process.env.PUBLIC_URL + '/image/bookmark_line.png'}/>
+    </TopFixedItem>
   );
 
 }

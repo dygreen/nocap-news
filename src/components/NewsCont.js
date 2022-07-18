@@ -74,11 +74,15 @@ const NewsCont = ({i}) => {
         <Title>{news[i].title}</Title>
         <Descript>{news[i].description}</Descript>
       </NewsItem>
+
       <Line />
+
       <RelatedNews>
         <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
       </RelatedNews>
+
       <Line />
+      
       <RelatedNews style={{marginBottom: '32px'}}>
         <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
       </RelatedNews>
