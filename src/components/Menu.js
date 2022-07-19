@@ -105,7 +105,7 @@ const Menu = ({setMenuModal}) => {
       overflow-y: scroll;
       width: 100%;`;
       
-    // 스크롤 다시 돌려놓기
+    // 스크롤 다시 돌려놓기(clean up function)
     return () => {
       const scrollY = document.body.style.top;
       document.body.style.cssText = '';
