@@ -1,10 +1,13 @@
 /* detail 페이지 : 뉴스 기사 자세히 */
 
+import React, { useState } from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import TopBarDetail from "../components/TopBarDetail.js";
 import Comment from '../components/Comment.js';
+import CommentInput from "../components/CommentInput.js";
+
 
 const DetailContainer = styled.div`
   width: 360px;
@@ -105,7 +108,7 @@ const ShowMoreBtn = styled.div`
   }
 `;
 
-const CommentTitle = styled.div`
+const CommentCount = styled.div`
   width: 100%;
   margin: 35px 20px 0px;
   font-weight: 700;
@@ -117,7 +120,7 @@ const CommentTitle = styled.div`
   }
 `;
 
-const CommentInput = styled.input`
+const Input = styled.input`
   width: 310px;
   height: 40px;
   border-radius: 4px;
@@ -143,7 +146,9 @@ const DetailNews = () => {
   let comment = useSelector(state => state.comment);
   let { id } = useParams(); // 현재 URL에 적힌 모든 파라미터를 object형식으로 저장해주는 함수
   let clickedNews = news.find(data => data.source.id == id); // 현재 URL의 /:id에 적힌 값과 데이터의 id 값이 같은지 비교, 참이면 변수에 저장함 -> html 표시
-  
+  let [input, setInput] = useState(false); // input 모달창
+
+
   return(
     <DetailContainer>
       <TopBarDetail/>
@@ -176,12 +181,17 @@ const DetailNews = () => {
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
 
         {/* 댓글.... */}
-        <CommentTitle><span>{comment.length}</span>개의 댓글</CommentTitle>
-        <CommentInput type={'text'} placeholder={'댓글을 입력해주세요.'}/>
+        <CommentCount><span>{comment.length}</span>개의 댓글</CommentCount>
+
+        {/* 댓글 입력창을 누르면 입력 모달창 등장 */}
+        <Input type={'text'} placeholder={'댓글을 입력해주세요.'} onClick={() => setInput(!input)}/>
         {
-          comment.map((a,i) => <Comment i={i} key={i} />)
+          input === true
+          ? <CommentInput/>
+          : comment.map((a,i) => <Comment i={i} key={i} />)
         }
         
+        {/* 더보기를 누르면 댓글 전체 모달창 등장 */}
         <ShowMoreBtn><p>더보기 &gt;</p></ShowMoreBtn>
 
       </DetailCont>

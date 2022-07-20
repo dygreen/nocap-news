@@ -1,8 +1,9 @@
-/* (디테일) 댓글 간단히 보여주기 */
+/* (Detail) 댓글 간단히 보여주기 */
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
+
 
 const CommentBox = styled.div`
   position: relative;
@@ -104,6 +105,7 @@ const Comment = ({i}) => {
 
       <UserComment>{comment[i].content}</UserComment>
 
+      {/* 신고/차단 버튼 */}
       <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setBlock(!block)}/>
       {
         block === true
