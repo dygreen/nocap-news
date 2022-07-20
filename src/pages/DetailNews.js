@@ -134,6 +134,9 @@ const Input = styled.input`
     padding: 11px 0px;
     color: #8C8C8C;
   }
+  :focus{
+    outline: 1px solid #D7352A;
+  }
 `;
 
 
@@ -184,7 +187,7 @@ const DetailNews = () => {
         <CommentCount><span>{comment.length}</span>개의 댓글</CommentCount>
 
         {/* 댓글 입력창을 누르면 입력 모달창 등장 */}
-        <Input type={'text'} placeholder={'댓글을 입력해주세요.'} onClick={() => setInput(!input)}/>
+        <Input type={'text'} placeholder={'댓글을 입력해주세요.'} onClick={() => setInput(true)}/>
         {
           input === true
           ? <CommentInput/>
