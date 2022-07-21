@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import TopBarDetail from "../components/TopBarDetail.js";
 import Comment from '../components/Comment.js';
-import CommentInput from "../components/CommentInput.js";
+import CommentChange from "../components/CommentChange.js";
 
 
 const DetailContainer = styled.div`
@@ -104,7 +104,7 @@ const ShowMoreBtn = styled.div`
     height: 17px;
     font-weight: 400;
     font-size: 12px;
-    margin: 8px 20px 24px;
+    margin: 8px 20px 0px;
   }
 `;
 
@@ -120,27 +120,6 @@ const CommentCount = styled.div`
   }
 `;
 
-const Input = styled.input`
-  width: 310px;
-  height: 40px;
-  border-radius: 4px;
-  border: 1px solid #dfdfdf;
-  margin: 8px 20px;
-  box-sizing: border-box;
-  text-indent: 8px;
-  ::placeholder{
-    font-weight: 400;
-    font-size: 14px;
-    padding: 11px 0px;
-    color: #8C8C8C;
-  }
-  :focus{
-    outline: 1px solid #D7352A;
-  }
-`;
-
-
-
 
 
 const DetailNews = () => {
@@ -149,7 +128,7 @@ const DetailNews = () => {
   let comment = useSelector(state => state.comment);
   let { id } = useParams(); // 현재 URL에 적힌 모든 파라미터를 object형식으로 저장해주는 함수
   let clickedNews = news.find(data => data.source.id == id); // 현재 URL의 /:id에 적힌 값과 데이터의 id 값이 같은지 비교, 참이면 변수에 저장함 -> html 표시
-  let [input, setInput] = useState(false); // input 모달창
+  let navigate = useNavigate();
 
 
   return(
@@ -168,7 +147,7 @@ const DetailNews = () => {
         <Descript>{clickedNews.description}</Descript>
 
         <AuthorBox>
-          <img src={process.env.PUBLIC_URL + '/image/author.png'}/>
+          <img src={process.env.PUBLIC_URL + '/image/userface.png'}/>
           <AuthorInfo>
             <p>{clickedNews.author}</p>
             <p>{clickedNews.source.name}</p>
@@ -183,19 +162,20 @@ const DetailNews = () => {
 
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
 
-        {/* 댓글.... */}
         <CommentCount><span>{comment.length}</span>개의 댓글</CommentCount>
 
-        {/* 댓글 입력창을 누르면 입력 모달창 등장 */}
-        <Input type={'text'} placeholder={'댓글을 입력해주세요.'} onClick={() => setInput(true)}/>
-        {
-          input === true
-          ? <CommentInput/>
-          : comment.map((a,i) => <Comment i={i} key={i} />)
+        {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
+        <CommentChange />
+
+        {/* 댓글.... */}
+        { 
+          comment.map((a,i) => <Comment i={i} key={i} />)
         }
-        
-        {/* 더보기를 누르면 댓글 전체 모달창 등장 */}
-        <ShowMoreBtn><p>더보기 &gt;</p></ShowMoreBtn>
+
+        {/* 더보기를 누르면 댓글 페이지로 이동 */}
+        <ShowMoreBtn>
+          <p onClick={() => navigate(`/detail/${id}/comment`)}>더보기 &gt;</p>
+        </ShowMoreBtn>
 
       </DetailCont>
     </DetailContainer>

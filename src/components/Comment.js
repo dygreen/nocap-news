@@ -96,7 +96,7 @@ const Comment = ({i}) => {
     <CommentBox>
 
       <UserBox>
-        <img src={process.env.PUBLIC_URL + '/image/author.png'}/>
+        <img src={process.env.PUBLIC_URL + '/image/userface.png'}/>
         <UserInfo>
           <p>{comment[i].user}</p>
           <p>{comment[i].date}</p>

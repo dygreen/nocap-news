@@ -24,7 +24,8 @@ const NewsContBox = styled.div`
 const LoadingMsg = styled.p`
   width: 360px;
   text-align: center;
-  margin-left: -20px;
+  margin-left: -10px;
+  margin-bottom: 0;
   padding: 10px;
 `;
 

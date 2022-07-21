@@ -19,6 +19,8 @@
 
 ***
 ## Code Info
+* React Router(v6)로 페이지 나누기: `Routes`,`Outlet`... 
+
 _Main_
 * [News API](https://newsapi.org/v2)에서 카테고리별 뉴스 API 요청(axios)
 * `useEffect`를 통해 카테고리 탭메뉴가 변경될 때마다 API 정보 업데이트하기
@@ -119,8 +121,26 @@ const CategoryTab = ({setCategory}) => {
   );
 
 }
-* 댓글 입력창 누르면 '입력 모달창' 등장
-* 댓글 더보기 버튼 누르면 '댓글 전체 모달창' 등장
+```
+* 댓글 입력창 누르면 '큰 입력창(300자 작성 가능)' 등장
+* 댓글 더보기 버튼 누르면 '해당 뉴스의 전체 댓글 페이지'로 넘어감
+* 댓글 입력 글자수 세기 -> `useDeferredValue()`를 사용해 `onChange()`로 인한 로딩 속도 저하 방지
+```javascript
+let [count, setCount] = useState(''); // 글자수 세기
+let countResult = useDeferredValue(count); // 성능개선: 글자수 세기의 실행시점을 뒤로 옮겨 반응속도 높이기
+
+<InputChange type={'text'} placeholder={'댓글을 입력해주세요.'} autoFocus maxLength={300} onChange={(e) => {setCount(e.target.value.length)} }/>
+<InputBottom>
+  <div>{
+  countResult === ''
+  ? 0
+  : countResult}/300
+  </div>
+  <div>완료</div>
+</InputBottom>
+```
+
+
 ```
 
 
