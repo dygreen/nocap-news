@@ -8,8 +8,8 @@ import styled from 'styled-components';
 const CommentBox = styled.div`
   position: relative;
   width: 320px;
-  height: 131px;
   margin: 0 20px;
+  padding-bottom: 15px;
   border-bottom: 1px solid #d9d9d9;
   box-sizing: border-box;
 `;
@@ -87,7 +87,7 @@ const BlockBox = styled.div`
 `;
 
 
-const Comment = ({i}) => {
+const CommentList = ({i}) => {
 
   let comment = useSelector(state => state.comment);
   let [block, setBlock] = useState(false);
@@ -96,7 +96,11 @@ const Comment = ({i}) => {
     <CommentBox>
 
       <UserBox>
-        <img src={process.env.PUBLIC_URL + '/image/userface.png'}/>
+        <img src={
+          comment[i].user == 'Dr.Saul Morar'
+          ? process.env.PUBLIC_URL + '/image/author.png'
+          : process.env.PUBLIC_URL + '/image/userface.png'
+        }/>
         <UserInfo>
           <p>{comment[i].user}</p>
           <p>{comment[i].date}</p>
@@ -111,8 +115,18 @@ const Comment = ({i}) => {
         block === true
         ? (
           <BlockBox>
-            <button style={{borderBottom: '0.3px solid #8c8c8c'}} onClick={() => alert('신고되었습니다')}>신고</button>
-            <button onClick={() => alert('차단되었습니다')}>차단</button>
+            <button style={{borderBottom: '0.3px solid #8c8c8c'}} onClick={() => {
+              comment[i].user == 'Dr.Saul Morar'
+              ? alert('신고할 수 없는 대상입니다')
+              : alert('신고되었습니다')
+            }
+            }>신고</button>
+            <button onClick={() => {
+              comment[i].user == 'Dr.Saul Morar'
+              ? alert('차단할 수 없는 대상입니다')
+              : alert('차단되었습니다')
+            }
+            }>차단</button>
           </BlockBox>
         )
         : null
@@ -122,4 +136,4 @@ const Comment = ({i}) => {
   );
 }
 
-export default Comment;
+export default CommentList;

@@ -26,7 +26,7 @@ let news = createSlice({
 });
 
 
-// comment: 댓글 데이터 추가, 삭제
+// comment: 댓글 데이터 추가
 let comment = createSlice({
   name : 'comment',
   initialState : [

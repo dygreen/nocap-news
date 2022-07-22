@@ -71,20 +71,9 @@ const InputBottom = styled.div`
   }
 `;
 
-  
-
-// 현재 날짜 구하기
-/* function getToday(){
-  var date = new Date();
-  var year = date.getFullYear();
-  var month = ("0" + (1 + today.getMonth())).slice(-2);
-  var day = ("0" + date.getDate()).slice(-2);
-
-  return year + "-" + month + "-" + day;
-} */
 
 
-const CommentChange = () => {
+const InputTemplate = () => {
 
   let dispatch = useDispatch();
   let [inputChange, setInputChange] = useState(false);
@@ -133,4 +122,4 @@ const CommentChange = () => {
 
 };
 
-export default CommentChange;
+export default InputTemplate;

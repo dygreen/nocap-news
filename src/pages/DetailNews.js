@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import TopBarDetail from "../components/TopBarDetail.js";
-import Comment from '../components/Comment.js';
-import CommentChange from "../components/CommentChange.js";
+import CommentList from '../components/CommentList.js';
+import InputTemplate from "../components/InputTemplate.js";
 
 
 const DetailContainer = styled.div`
@@ -92,6 +92,9 @@ const RelatedTitle = styled.div`
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 `;
 
 const CommentCount = styled.div`
@@ -122,6 +125,26 @@ const ShowMoreBtn = styled.div`
     font-weight: 400;
     font-size: 12px;
     margin: 8px 20px 0px;
+  }
+`;
+
+const RelatedImgTitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0px 20px;
+  img{
+    width: 84px;
+    height: 56px;
+    margin: 8px 0px;
+  }
+  p{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    margin-left: 8px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 `;
 
@@ -160,22 +183,16 @@ const DetailNews = () => {
         </AuthorBox>
 
         <Line />
-
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
-        
         <Line />
-
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
 
         <CommentCount><span>{comment.length}</span>개의 댓글</CommentCount>
-
-        {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
-        <CommentChange />
-
-        {/* 댓글.... */}
-        <CommentDefault>
+        <InputTemplate /> {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
+        
+        <CommentDefault> {/* 댓글.... */}
           { 
-            comment.map((a,i) => <Comment i={i} key={i} />)
+            comment.map((a,i) => <CommentList i={i} key={i} />)
           }
         </CommentDefault>
 
@@ -183,6 +200,23 @@ const DetailNews = () => {
         <ShowMoreBtn>
           <p onClick={() => navigate(`/detail/${id}/comment`)}>더보기 &gt;</p>
         </ShowMoreBtn>
+
+        {/* 관련 뉴스 + 이미지 */}
+        <Line style={{marginTop: "24px"}}/>
+        <RelatedImgTitleBox>
+          <img src={clickedNews.urlToImage} />
+          <p>{clickedNews.title}</p>
+        </RelatedImgTitleBox>
+        <Line />
+        <RelatedImgTitleBox>
+          <img src={clickedNews.urlToImage} />
+          <p>{clickedNews.title}</p>
+        </RelatedImgTitleBox>
+
+        <Line />
+        <RelatedTitle>{clickedNews.title}</RelatedTitle>
+        <Line />
+        <RelatedTitle style={{marginBottom: "90px"}}>{clickedNews.title}</RelatedTitle>
 
       </DetailCont>
     </DetailContainer>

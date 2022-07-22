@@ -4,8 +4,8 @@ import React, { useMemo } from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import CommentChange from "../components/CommentChange.js";
-
+import InputTemplate from "../components/InputTemplate.js";
+import CommentList from "../components/CommentList.js";
 
 const AllContainer = styled.div`
   margin-top: 80px;
@@ -61,19 +61,12 @@ const UserBox = styled.div`
 
 
 
-
-
 const CommentAll = () => {
 
   let news = useSelector(state => state.news.data);
   let { id } = useParams();
   let clickedNews = news.find(data => data.source.id == id);
   let comment = useSelector(state => state.comment);
-  
-
-
-  // 페이지 로드시 스크롤 맨 위로
-  useMemo(() => window.scrollTo(0, 0));
 
 
   return(
@@ -89,11 +82,13 @@ const CommentAll = () => {
       </UserBox>
 
       {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
-      <CommentChange />
+      <InputTemplate />
       
+      { 
+        comment.map((a,i) => <CommentList i={i} key={i} />)
+      }
+
     </AllContainer>
-
-
   );
 
 }
