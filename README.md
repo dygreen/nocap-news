@@ -122,6 +122,7 @@ const CategoryTab = ({setCategory}) => {
 
 }
 ```
+
 * 댓글 입력창 누르면 '큰 입력창(300자 작성 가능)' 등장
 * 댓글 더보기 버튼 누르면 '해당 뉴스의 전체 댓글 페이지'로 넘어감
 * 댓글 입력 글자수 세기 -> `useDeferredValue()`를 사용해 `onChange()`로 인한 로딩 속도 저하 방지
@@ -131,15 +132,29 @@ let countResult = useDeferredValue(count); // 성능개선: 글자수 세기의 
 
 <InputChange type={'text'} placeholder={'댓글을 입력해주세요.'} autoFocus maxLength={300} onChange={(e) => {setCount(e.target.value.length)} }/>
 <InputBottom>
-  <div>{
-  countResult === ''
-  ? 0
-  : countResult}/300
-  </div>
-  <div>완료</div>
+  <div>{ countResult === '' ? 0 : countResult }/300</div>
 </InputBottom>
 ```
 
+* 댓글 입력 후 '완료' 버튼을 누르면 해당 데이터를 `Redux`로 전송하여, 공백/중복 검사 후 화면에 표시
+```javascript
+reducers : {
+  addContent(state, action){ // 댓글: 공백/중복 확인, 추가
+    let copy = [...state];
+    let same = copy.findIndex(a => a.content === action.payload.content); // content가 같으면 해당 index을 남김
+
+    if ( action.payload.content == '' ){ // 공백 검사
+      alert('내용을 입력해주세요.');
+    } else if ( same >= 0 ){ // 중복인 경우 : 중복 알림
+      alert('댓글이 이미 등록되었습니다.');
+    } else { // 중복이 아닌 경우 : 댓글 추가
+      copy.push(action.payload);
+      return copy
+    }
+
+  },
+},
+```
 
 
 

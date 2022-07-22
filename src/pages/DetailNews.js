@@ -94,6 +94,23 @@ const RelatedTitle = styled.div`
   line-height: 17px;
 `;
 
+const CommentCount = styled.div`
+  width: 100%;
+  margin: 35px 20px 0px;
+  font-weight: 700;
+  font-size: 16px;
+  span{
+    color: #8C8C8C;
+    letter-spacing: -0.1px;
+    margin-right: 4px;
+  }
+`;
+
+const CommentDefault = styled.div`
+  height: calc(131px*3);
+  overflow-y: hidden;
+`;
+
 const ShowMoreBtn = styled.div`
   width: 100%;
   display: flex;
@@ -105,18 +122,6 @@ const ShowMoreBtn = styled.div`
     font-weight: 400;
     font-size: 12px;
     margin: 8px 20px 0px;
-  }
-`;
-
-const CommentCount = styled.div`
-  width: 100%;
-  margin: 35px 20px 0px;
-  font-weight: 700;
-  font-size: 16px;
-  span{
-    color: #8C8C8C;
-    letter-spacing: -0.1px;
-    margin-right: 4px;
   }
 `;
 
@@ -168,9 +173,11 @@ const DetailNews = () => {
         <CommentChange />
 
         {/* 댓글.... */}
-        { 
-          comment.map((a,i) => <Comment i={i} key={i} />)
-        }
+        <CommentDefault>
+          { 
+            comment.map((a,i) => <Comment i={i} key={i} />)
+          }
+        </CommentDefault>
 
         {/* 더보기를 누르면 댓글 페이지로 이동 */}
         <ShowMoreBtn>

@@ -12,6 +12,7 @@ const TopFixedItem = styled.div`
   height: 56px;
   background: #fff;
   border-bottom: 2px solid #D7352A;
+  z-index: 9999;
 `;
 
 const BackIcon = styled.img`

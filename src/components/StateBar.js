@@ -8,6 +8,7 @@ const StateBarBox = styled.div`
   width: 360px;
   height: 24px;
   background: #fff;
+  z-index: 9999;
 `;
 
 const State = styled.img`
