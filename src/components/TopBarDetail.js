@@ -1,6 +1,9 @@
-/* (메인) 탑 바 - 로고, 메뉴 아이콘 */
+/* (메인) 탑 바 - 로고, 메뉴 아이콘
+즐겨찾기 버튼: 클릭시 해당 뉴스 제목+발행일 dispatch (Redux)
+*/
 
 import { useNavigate, Outlet, useParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import styled from 'styled-components';
 import TopBar from "./TopBar";
 
@@ -39,7 +42,9 @@ const BookMarkIcon = styled.img`
 const TopBarDetail = () => {
 
   let navigate = useNavigate();
+  let news = useSelector(state => state.news.data);
   let { id } = useParams();
+  let clickedNews = news.find(data => data.source.id == id);
 
   return (
     <>

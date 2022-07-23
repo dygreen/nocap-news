@@ -1,7 +1,6 @@
 /* (메인) 메뉴 클릭시 나타나는 탑 바 */
 
 import { useNavigate, Outlet } from "react-router-dom";
-import TopBar from "./TopBar";
 import styled from 'styled-components';
 
 const TopFixedItem = styled.div`
@@ -29,7 +28,6 @@ const TopBarMenu = () => {
   return (
     <>
       <TopFixedItem>
-        <TopBar/>
         <BackIcon src={process.env.PUBLIC_URL + '/image/arrow_back.png'} onClick={() => { navigate(-1) }}/>
       </TopFixedItem>
 

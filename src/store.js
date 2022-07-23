@@ -63,12 +63,52 @@ let comment = createSlice({
 });
 
 
+// bookmark: 즐겨찾기 데이터
+let bookmark = createSlice({
+  name : 'bookmark',
+  initialState : [
+    {
+      date : 'Mon May 23 2022',
+      list : [
+        { title : '늘어나는 코로나 재감염…10명 중 3명이 소아·청소년', published : '2022-05-23T09:12:54Z' },
+        { title : '휘발유값 3주째 하락세라는데…우리 동네는 왜이래', published : '2022-05-23T08:54:33Z' },
+      ],
+    },
+    {
+      date : 'Sun April 10 2022',
+      list : [
+        { title : '[단독] 다방까지 뒤졌지만… 훈민정음 상주본 회수 못 해', published : '2022-04-23T09:12:54Z' },
+      ],
+    },
+    {
+      date : 'Fri Jan 07 2022',
+      list : [
+        { title : '반팔 입고 다니는 북극…그린란드 빙하, 하루 60억톤 녹았다', published : '2022-01-02T08:26:06Z' },
+        { title : '일, 원전 오염수 방출 확정…"7개월 뒤 제주 앞바다로"', published : '2022-01-07T09:12:54Z' },
+        { title : '[날씨] 가장 덥다는 대서에 비소식…돌풍·천둥번개 동반', published : '2022-01-08T08:26:06Z' },
+      ],
+    },
+  ],
+  reducers : {
+    bookmarking(state, action){
+      let copy = [...state];
+      state.date == action.payload.date
+      ? copy.list.unshift(action.payload.list)
+      : copy.unshift(action.payload)
+    },
+  },
+});
+
+
+
 export default configureStore({
   reducer: { 
     news : news.reducer,
-    comment : comment.reducer
+    comment : comment.reducer,
+    bookmark : bookmark.reducer,
   }
 }); 
 
 export let { newsData, newsIdSet } = news.actions;
 export let { addContent, blockContent } = comment.actions;
+export let { bookmarking } = bookmark.actions;

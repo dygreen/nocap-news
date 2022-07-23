@@ -4,6 +4,14 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
+const Logo = styled.img`
+  position: absolute;
+  top: 41px;
+  left: 125px;
+  cursor: pointer;
+  z-index: 1000;
+`;
+
 const MenuBox = styled.div`
   width: 100%;
   height: 100%;
@@ -114,35 +122,39 @@ const Menu = () => {
 
 
   return(
-    <MenuBox>
+    <>
+      <Logo src={process.env.PUBLIC_URL + '/image/logo.png'} onClick={() => { navigate('/') }}/>
 
-      <AuthorBox>
-        <img src={process.env.PUBLIC_URL + '/image/author.png'}/>
-        <AuthorInfo>
-          <p>Dr.Saul Morar</p>
-          <p>Joan_Jacobi@gmail.com</p>
-        </AuthorInfo>
-      </AuthorBox>
+      <MenuBox>
 
-      <MenuCategoryBox onClick={() => navigate('/m/my-news')}>
-        <Icon src={process.env.PUBLIC_URL + '/image/bookmark.png'}/>
-        <Text>즐겨찾기</Text>
-      </MenuCategoryBox>
+        <AuthorBox>
+          <img src={process.env.PUBLIC_URL + '/image/author.png'}/>
+          <AuthorInfo>
+            <p>Dr.Saul Morar</p>
+            <p>Joan_Jacobi@gmail.com</p>
+          </AuthorInfo>
+        </AuthorBox>
 
-      <MenuCategoryBox onClick={() => navigate('/m/my-comment')}>
-        <Icon src={process.env.PUBLIC_URL + '/image/comment_line.png'}/>
-        <Text>내가 남긴 댓글</Text>
-      </MenuCategoryBox>
+        <MenuCategoryBox onClick={() => navigate('/m/my-news')}>
+          <Icon src={process.env.PUBLIC_URL + '/image/bookmark.png'}/>
+          <Text>즐겨찾기</Text>
+        </MenuCategoryBox>
 
-      <MenuCategoryBox>
-        <Icon src={process.env.PUBLIC_URL + '/image/darkmode.png'}/>
-        <Text>다크모드</Text>
-        <CheckBox src={process.env.PUBLIC_URL + '/image/check_blank.png'}/>
-      </MenuCategoryBox>
+        <MenuCategoryBox onClick={() => navigate('/m/my-comment')}>
+          <Icon src={process.env.PUBLIC_URL + '/image/comment_line.png'}/>
+          <Text>내가 남긴 댓글</Text>
+        </MenuCategoryBox>
 
-      <LogoutBtn>로그아웃</LogoutBtn>
+        <MenuCategoryBox>
+          <Icon src={process.env.PUBLIC_URL + '/image/darkmode.png'}/>
+          <Text>다크모드</Text>
+          <CheckBox src={process.env.PUBLIC_URL + '/image/check_blank.png'}/>
+        </MenuCategoryBox>
 
-    </MenuBox>
+        <LogoutBtn>로그아웃</LogoutBtn>
+
+      </MenuBox>
+    </>
   );
 
 }
