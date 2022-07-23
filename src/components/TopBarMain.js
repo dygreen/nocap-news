@@ -1,9 +1,8 @@
-/* (메인) 탑 바 - 로고, 메뉴 아이콘(+메뉴 아이콘 클릭시 메뉴 등장 기능 조절) */
+/* (메인) 탑 바 - 로고, 메뉴 아이콘(+메뉴 아이콘 클릭시 메뉴 페이지로 이동) */
 
-import React, { useState } from "react";
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import TopBar from "./TopBar.js";
-import Menu from "./Menu.js";
+import styled from 'styled-components';
 
 const MenuIcon = styled.img`
   position: absolute;
@@ -15,17 +14,14 @@ const MenuIcon = styled.img`
 
 const TopBarMain = () => {
 
-  let [menuModal, setMenuModal] = useState(false);
+  let navigate = useNavigate();
 
   return (
     <>
       <TopBar/>
       <MenuIcon src={process.env.PUBLIC_URL + '/image/menu_icon.png'} onClick={() => {
-        setMenuModal(!menuModal); // 메뉴 아이콘 클릭시 메뉴 등장
+        navigate('/m/menu') // 메뉴 아이콘 클릭시 메뉴 페이지로 이동
       }}/>
-      {
-        menuModal === true ? <Menu setMenuModal={setMenuModal}/> : null
-      }
     </>
   );
 

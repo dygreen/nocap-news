@@ -1,17 +1,14 @@
 /* (메인) 왼쪽 상단 메뉴 아이콘 클릭시 나타나는 메뉴 */
 
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-import TopBarMenu from "./TopBarMenu.js";
 
 const MenuBox = styled.div`
-  position: fixed;
-  top: 24px;
-  left: 0;
   width: 100%;
   height: 100%;
   background: #fff;
-  
+  padding-top: 80px;
 `;
 
 const AuthorBox = styled.div`
@@ -94,7 +91,7 @@ const LogoutBtn = styled.button`
 
 
 
-const Menu = ({setMenuModal}) => {
+const Menu = () => {
 
   // 메뉴 모달창이 뜨면 뒤에 콘텐츠가 움직이지 않도록 함
   useEffect(() => {
@@ -113,12 +110,11 @@ const Menu = ({setMenuModal}) => {
     };
   }, []);
 
+  let navigate = useNavigate();
 
 
   return(
     <MenuBox>
-
-      <TopBarMenu setMenuModal={setMenuModal}/>
 
       <AuthorBox>
         <img src={process.env.PUBLIC_URL + '/image/author.png'}/>
@@ -128,14 +124,16 @@ const Menu = ({setMenuModal}) => {
         </AuthorInfo>
       </AuthorBox>
 
-      <MenuCategoryBox>
+      <MenuCategoryBox onClick={() => navigate('/m/my-news')}>
         <Icon src={process.env.PUBLIC_URL + '/image/bookmark.png'}/>
         <Text>즐겨찾기</Text>
       </MenuCategoryBox>
-      <MenuCategoryBox>
+
+      <MenuCategoryBox onClick={() => navigate('/m/my-comment')}>
         <Icon src={process.env.PUBLIC_URL + '/image/comment_line.png'}/>
         <Text>내가 남긴 댓글</Text>
       </MenuCategoryBox>
+
       <MenuCategoryBox>
         <Icon src={process.env.PUBLIC_URL + '/image/darkmode.png'}/>
         <Text>다크모드</Text>

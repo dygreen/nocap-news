@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { blockContent } from "../store.js";
 import styled from 'styled-components';
 
 
@@ -89,6 +90,7 @@ const BlockBox = styled.div`
 
 const CommentList = ({i}) => {
 
+  let dispatch = useDispatch();
   let comment = useSelector(state => state.comment);
   let [block, setBlock] = useState(false);
 
@@ -109,22 +111,28 @@ const CommentList = ({i}) => {
 
       <UserComment>{comment[i].content}</UserComment>
 
-      {/* 신고/차단 버튼 */}
+      {/* 신고/차단 버튼 (redux) */}
       <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setBlock(!block)}/>
       {
         block === true
         ? (
           <BlockBox>
             <button style={{borderBottom: '0.3px solid #8c8c8c'}} onClick={() => {
-              comment[i].user == 'Dr.Saul Morar'
-              ? alert('신고할 수 없는 대상입니다')
-              : alert('신고되었습니다')
+              if( comment[i].user == 'Dr.Saul Morar' ){
+                alert('신고할 수 없는 대상입니다');
+              } else {
+                dispatch(blockContent({content: comment[i].content}));
+                alert('신고되었습니다');
+              }
             }
             }>신고</button>
             <button onClick={() => {
-              comment[i].user == 'Dr.Saul Morar'
-              ? alert('차단할 수 없는 대상입니다')
-              : alert('차단되었습니다')
+              if( comment[i].user == 'Dr.Saul Morar' ){
+                alert('차단할 수 없는 대상입니다');
+              } else {
+                dispatch(blockContent({content: comment[i].content}));
+                alert('차단되었습니다');
+              }              
             }
             }>차단</button>
           </BlockBox>

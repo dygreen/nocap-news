@@ -1,6 +1,6 @@
 /* (메인) 탑 바 - 로고, 메뉴 아이콘 */
 
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import TopBar from "./TopBar";
 
@@ -39,13 +39,14 @@ const BookMarkIcon = styled.img`
 const TopBarDetail = () => {
 
   let navigate = useNavigate();
+  let { id } = useParams();
 
   return (
     <>
       <TopFixedItem>
         <TopBar/>
-        <BackIcon src={process.env.PUBLIC_URL + '/image/arrow_back.png'} onClick={() => { navigate(-1) }}/>
-        <CommentIcon src={process.env.PUBLIC_URL + '/image/comment.png'}/>
+        <BackIcon src={process.env.PUBLIC_URL + '/image/arrow_back.png'} onClick={() => navigate(-1) }/>
+        <CommentIcon src={process.env.PUBLIC_URL + '/image/comment.png'} onClick={() => navigate(`/detail/${id}/comment`)}/>
         <BookMarkIcon src={process.env.PUBLIC_URL + '/image/bookmark_line.png'}/>
       </TopFixedItem>
       

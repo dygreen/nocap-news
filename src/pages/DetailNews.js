@@ -110,7 +110,7 @@ const CommentCount = styled.div`
 `;
 
 const CommentDefault = styled.div`
-  height: calc(131px*3);
+  max-height: calc(131px*3);
   overflow-y: hidden;
 `;
 

@@ -6,6 +6,10 @@ import MainNews from './pages/MainNews.js';
 import TopBarDetail from './components/TopBarDetail.js';
 import DetailNews from './pages/DetailNews.js';
 import CommentAll from './pages/CommentAll.js';
+import TopBarMenu from './components/TopBarMenu';
+import Menu from './pages/Menu.js';
+import MyNews from './pages/MyNews.js';
+import MyComment from './pages/MyComment.js';
 
 
 const App = () => {
@@ -14,6 +18,12 @@ const App = () => {
       <StateBar/>
       <Routes>
         <Route path="/" element={<MainNews/>} />
+
+        <Route path="/m" element={<TopBarMenu/>}>
+          <Route path="menu" element={<Menu/>} />
+          <Route path="my-news" element={<MyNews/>} />
+          <Route path="my-comment" element={<MyComment/>} />
+        </Route>
 
         <Route path="/detail" element={<TopBarDetail/>}>
           <Route path=":id" element={<DetailNews/>} />

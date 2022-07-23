@@ -1,4 +1,8 @@
-/* redux toolkit : state & 변경 함수 보관 */
+/* redux toolkit : state & 변경 함수 보관 
+- news
+- 댓글
+- 즐겨찾기
+*/
 
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
@@ -49,6 +53,12 @@ let comment = createSlice({
       }
 
     },
+    blockContent(state, action){ // 댓글: 신고/차단
+      let copy = [...state];
+      let block = copy.filter(a => a.content !== action.payload.content); // 신고/차단 외의 댓글만 남음
+
+      return block
+    },
   },
 });
 
@@ -61,4 +71,4 @@ export default configureStore({
 }); 
 
 export let { newsData, newsIdSet } = news.actions;
-export let { addContent } = comment.actions;
+export let { addContent, blockContent } = comment.actions;
