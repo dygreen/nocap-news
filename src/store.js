@@ -68,6 +68,12 @@ let bookmark = createSlice({
   name : 'bookmark',
   initialState : [
     {
+      date : '',
+      list : [
+        { title : '', published : '' },
+      ],
+    },
+    {
       date : 'Mon May 23 2022',
       list : [
         { title : '늘어나는 코로나 재감염…10명 중 3명이 소아·청소년', published : '2022-05-23T09:12:54Z' },
@@ -91,10 +97,22 @@ let bookmark = createSlice({
   ],
   reducers : {
     bookmarking(state, action){
+      /* let copy = [...state];
+      copy.date == action.payload.date
+      ? copy[0].list.unshift(action.payload.list)
+      : copy.unshift(action.payload) */
+
+      let found = state.findIndex(a => a.date === action.payload.date);
       let copy = [...state];
-      state.date == action.payload.date
-      ? copy.list.unshift(action.payload.list)
-      : copy.unshift(action.payload)
+
+      if( found >= 0 ){
+        copy[0].list.unshift(action.payload.list)
+        return copy
+      } else {
+        copy.unshift(action.payload)
+        return copy
+      }
+      
     },
   },
 });

@@ -2,10 +2,12 @@
 즐겨찾기 버튼: 클릭시 해당 뉴스 제목+발행일 dispatch (Redux)
 */
 
+import React, { useState } from "react";
 import { useNavigate, Outlet, useParams } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 import TopBar from "./TopBar";
+import { bookmarking } from "../store";
 
 const TopFixedItem = styled.div`
   position: fixed;
@@ -45,14 +47,43 @@ const TopBarDetail = () => {
   let news = useSelector(state => state.news.data);
   let { id } = useParams();
   let clickedNews = news.find(data => data.source.id == id);
+  let [icon, setIcon] = useState(false); // 즐겨찾기 아이콘
+  let dispatch = useDispatch();
+
+  let today = new Date();
+  let todayFull = {
+    weekday : today.toLocaleString('en-us', { weekday: "short" }),
+    month : today.toLocaleString('en-us', { month: "short" }),
+    date : ("0" + today.getDate()).slice(-2),
+    year : today.getFullYear()
+  };
 
   return (
     <>
       <TopFixedItem>
         <TopBar/>
+
         <BackIcon src={process.env.PUBLIC_URL + '/image/arrow_back.png'} onClick={() => navigate(-1) }/>
+
         <CommentIcon src={process.env.PUBLIC_URL + '/image/comment.png'} onClick={() => navigate(`/detail/${id}/comment`)}/>
-        <BookMarkIcon src={process.env.PUBLIC_URL + '/image/bookmark_line.png'}/>
+
+        <BookMarkIcon src={ /* 즐겨찾기 아이콘 */
+          icon == false
+          ? process.env.PUBLIC_URL + '/image/bookmark_line.png'
+          : process.env.PUBLIC_URL + '/image/bookmark_fill.png'
+        } onClick={() => {
+          setIcon(true);
+          dispatch(bookmarking(
+            {
+              date : `${todayFull.weekday} ${todayFull.month} ${todayFull.date} ${todayFull.year}`,
+              list : [
+                { title : clickedNews.title, published : clickedNews.publishedAt }
+              ]
+            }
+          ));
+        }   
+        }/>
+
       </TopFixedItem>
       
       <Outlet/> {/* 서브 컴포넌트 표기할 곳 */}

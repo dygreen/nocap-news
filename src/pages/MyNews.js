@@ -4,6 +4,11 @@ import { useSelector } from "react-redux";
 import MyNewsList from "../components/MyNewsList.js";
 import styled from 'styled-components';
 
+const MyNewsContainer = styled.div`
+  width: 360px;
+  overflow: hidden;
+`;
+
 const MyNewTitle = styled.div`
   position: fixed;
   top: 41px;
@@ -14,6 +19,20 @@ const MyNewTitle = styled.div`
   z-index: 1000;
 `;
 
+const MyNewsContents = styled.div`
+  margin: 24px 20px;
+  margin-top: 104px;
+`;
+
+const AddDate = styled.div`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.1px;
+  color: #8C8C8C;
+  margin-bottom: 8px;
+  margin-top: 32px;
+`;
 
 
 const MyNews = () => {
@@ -21,18 +40,21 @@ const MyNews = () => {
   let bookmark = useSelector(state => state.bookmark);
 
   return (
-    <>
+    <MyNewsContainer>
       <MyNewTitle>즐겨찾기</MyNewTitle>
-      <div style={{marginTop: "80px"}}>
+      <MyNewsContents>
         {
           bookmark.map((a,i) => 
-            bookmark[i].list.map((a,num) => 
-              <MyNewsList num={num} i={i} key={num}/>
-            )
+            <>
+              <AddDate>{bookmark[i].date}</AddDate>
+              {
+                bookmark[i].list.map((a,num) => <MyNewsList num={num} i={i} key={num}/>)
+              }
+            </>
           )
         }
-      </div>
-    </>
+      </MyNewsContents>
+    </MyNewsContainer>
   );
 }
 
