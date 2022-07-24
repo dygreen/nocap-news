@@ -1,5 +1,6 @@
 /* (메인-메뉴-내가 남긴 댓글) 내가 남긴 댓글을 볼 수 있는 페이지 */
 
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const MyCommentTitle = styled.div`
@@ -16,9 +17,13 @@ const MyCommentTitle = styled.div`
 
 
 const MyComment = () => {
+
+
+
   return (
     <>
       <MyCommentTitle>내가 남긴 댓글</MyCommentTitle>
+
     </>
   );
 }
