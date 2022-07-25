@@ -35,7 +35,8 @@ useEffect(() => {
     try {
       const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
       const JsonData = res.data.articles;
-      dispatch(newsData(JsonData), newsIdSet(JsonData)); // redux로 결과 전달
+      dispatch(newsData(JsonData)); // redux로 결과 전달
+      dispatch(newsIdSet(JsonData));
     }
     catch (err){
       console.log('오류가 발생했습니다.');
