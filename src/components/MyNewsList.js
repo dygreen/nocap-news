@@ -18,6 +18,7 @@ const BookTitle = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  overflow: hidden;
 `;
 
 const BookPulished = styled.div`

@@ -95,6 +95,7 @@ const RelatedTitle = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  overflow: hidden;
 `;
 
 const CommentCount = styled.div`
@@ -145,6 +146,7 @@ const RelatedImgTitleBox = styled.div`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 `;
 
