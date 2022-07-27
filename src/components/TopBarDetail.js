@@ -44,12 +44,15 @@ const BookMarkIcon = styled.img`
 const TopBarDetail = () => {
 
   let navigate = useNavigate();
+  let dispatch = useDispatch();
+  
   let news = useSelector(state => state.news.data);
   let { id } = useParams();
   let clickedNews = news.find(data => data.source.id == id);
-  let [icon, setIcon] = useState(false); // 즐겨찾기 아이콘
-  let dispatch = useDispatch();
 
+  let [icon, setIcon] = useState(false); // 즐겨찾기 아이콘
+
+  // 날짜 데이터 전달
   let today = new Date();
   let todayFull = {
     weekday : today.toLocaleString('en-us', { weekday: "short" }),
@@ -57,6 +60,7 @@ const TopBarDetail = () => {
     date : ("0" + today.getDate()).slice(-2),
     year : today.getFullYear()
   };
+
 
   return (
     <>
@@ -81,8 +85,8 @@ const TopBarDetail = () => {
               ]
             }
           ));
-        }   
-        }/>
+        }}
+        />
 
       </TopFixedItem>
       

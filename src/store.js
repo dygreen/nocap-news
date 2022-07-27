@@ -4,7 +4,7 @@
 - 즐겨찾기
 */
 
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice, current } from '@reduxjs/toolkit';
 
 // news: 뉴스 데이터 (ajax요청)
 let news = createSlice({
@@ -68,12 +68,6 @@ let bookmark = createSlice({
   name : 'bookmark',
   initialState : [
     {
-      date : '',
-      list : [
-        { title : '', published : '' },
-      ],
-    },
-    {
       date : 'Mon May 23 2022',
       list : [
         { title : '늘어나는 코로나 재감염…10명 중 3명이 소아·청소년', published : '2022-05-23T09:12:54Z' },
@@ -97,20 +91,15 @@ let bookmark = createSlice({
   ],
   reducers : {
     bookmarking(state, action){
-      /* let copy = [...state];
-      copy.date == action.payload.date
-      ? copy[0].list.unshift(action.payload.list)
-      : copy.unshift(action.payload) */
-
       let found = state.findIndex(a => a.date === action.payload.date);
-      let copy = [...state];
 
       if( found >= 0 ){
-        copy[0].list.unshift(action.payload.list)
-        return copy
+        console.log(state);
+        console.log(current(state));
+        state[0].list.unshift(action.payload.list[0]);
       } else {
-        copy.unshift(action.payload)
-        return copy
+        state.unshift(action.payload);
+        return state
       }
       
     },

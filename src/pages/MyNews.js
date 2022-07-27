@@ -46,7 +46,7 @@ const MyNews = () => {
         {
           bookmark.map((a,i) => 
             <>
-              <AddDate>{bookmark[i].date}</AddDate>
+              <AddDate key={i}>{bookmark[i].date}</AddDate>
               {
                 bookmark[i].list.map((a,num) => <MyNewsList num={num} i={i} key={num}/>)
               }
