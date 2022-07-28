@@ -169,7 +169,23 @@ blockContent(state, action){ // 댓글: 신고/차단
 },
 ```
 
+* 상단 '즐겨찾기' 아이콘을 누르면 해당 뉴스의 데이터를 `Redux`에 전송하여, `unshift()`를 사용해 배열의 가장 앞에 데이터 집어넣어 표시(메인-메뉴-즐겨찾기 페이지)
+```javascript
+bookmarking(state, action){
+  let found = state.findIndex(a => a.date === action.payload.date);
 
+  if( found >= 0 ){
+    state[found].list.unshift(action.payload.list[found]);
+  } else {
+    state.unshift(action.payload);
+    return state
+  }
+  
+},
+```
+
+* '즐겨찾기' 아이콘을 누르면, 해당 뉴스의 데이터를 `localStorage`에 저장하여 페이지를 이탈했다 돌아와도 (아이콘의)누른 상태가 유지되도록 함
+* '즐겨찾기' 아이콘을 두 번 이상 누를 수 없도록 하여, 메인-메뉴-즐겨찾기에 데이터가 중복으로 추가할 수 없도록 함
 
 
 

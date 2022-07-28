@@ -2,7 +2,7 @@
 즐겨찾기 버튼: 클릭시 해당 뉴스 제목+발행일 dispatch (Redux)
 */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
@@ -40,6 +40,20 @@ const BookMarkIcon = styled.img`
   right: 20px;
 `;
 
+// localStorage : setIcon 조정
+const jsonLocalStorage = {
+  setItem: (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+  getItem: (key) => {
+    return JSON.parse(localStorage.getItem(key));
+  },
+  removeItem: (key) => {
+    localStorage.removeItem(key);
+  }
+};
+
+
 
 const TopBarDetail = () => {
 
@@ -51,6 +65,32 @@ const TopBarDetail = () => {
   let clickedNews = news.find(data => data.source.id == id);
 
   let [icon, setIcon] = useState(false); // 즐겨찾기 아이콘
+  let [bookList, setBookList] = useState(() => { // localStorage 값 가져오기
+    return jsonLocalStorage.getItem('newsId') || []
+  });
+
+
+  // 즐겨찾기: localStorage에 데이터 추가
+  function bookListAdd(data){ 
+    const ListAdd = [...bookList, data];
+    jsonLocalStorage.setItem('newsId', ListAdd);
+    setIcon(true);
+  }
+
+
+  // 즐겨찾기 리스트 중복 추가 방지
+  function iconHandler(data){ 
+    const existingBook = localStorage.getItem('newsId');
+
+    if( existingBook != null ){ // local에 값이 있으면, 중복 데이터인지 검사 후 추가/중복알림
+      const found = existingBook.includes(clickedNews.publishedAt);
+      found == true ? alert('이미 추가되었습니다') : bookListAdd(data);
+    } else { // local에 값이 없으면 추가
+      bookListAdd(data);
+    }
+
+  }
+
 
   // 날짜 데이터 전달
   let today = new Date();
@@ -60,6 +100,16 @@ const TopBarDetail = () => {
     date : ("0" + today.getDate()).slice(-2),
     year : today.getFullYear()
   };
+
+
+  // 아이콘 변경 유지: 현재 페이지가 즐겨찾기 누른 리스트('newsId')에 있으면 아이콘 변경된 상태(채워짐) 유지
+  useEffect(() => {
+    if( localStorage.getItem('newsId') != null ){
+      const found = localStorage.getItem('newsId').includes(clickedNews.publishedAt);
+      found == true ? setIcon(true) : setIcon(false);
+    }
+  },[]);
+  
 
 
   return (
@@ -75,16 +125,21 @@ const TopBarDetail = () => {
           icon == false
           ? process.env.PUBLIC_URL + '/image/bookmark_line.png'
           : process.env.PUBLIC_URL + '/image/bookmark_fill.png'
-        } onClick={() => {
-          setIcon(true);
-          dispatch(bookmarking(
+        } 
+        onClick={() => {
+          // icon이 true(채워진)이면 dispatch가 되지 않도록 함
+          icon == false
+          ? dispatch(bookmarking(
             {
               date : `${todayFull.weekday} ${todayFull.month} ${todayFull.date} ${todayFull.year}`,
               list : [
                 { title : clickedNews.title, published : clickedNews.publishedAt }
               ]
             }
-          ));
+          ))
+          : null;
+
+          iconHandler(clickedNews.publishedAt); // clickedNews.title로 중복 데이터를 선별하기엔 ""이 제목 중간에 있는 기사의 경우 정확한 판별이 되지 않아 발행일(고유)로 판단하기로 함
         }}
         />
 

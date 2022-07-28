@@ -94,9 +94,7 @@ let bookmark = createSlice({
       let found = state.findIndex(a => a.date === action.payload.date);
 
       if( found >= 0 ){
-        console.log(state);
-        console.log(current(state));
-        state[0].list.unshift(action.payload.list[0]);
+        state[found].list.unshift(action.payload.list[found]);
       } else {
         state.unshift(action.payload);
         return state
