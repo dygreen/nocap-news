@@ -1,9 +1,12 @@
 /* (메인-메뉴-즐겨찾기)에 들어갈 컨텐츠 리스트 */
 
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { removeContent } from "../store.js";
 import styled from 'styled-components';
 
 const Line = styled.div`
+  position: relative;
   width: 320px;
   height: 1px;
   background: #d9d9d9;
@@ -11,6 +14,7 @@ const Line = styled.div`
 `;
 
 const BookTitle = styled.div`
+  width: 288px;
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
@@ -21,6 +25,23 @@ const BookTitle = styled.div`
   overflow: hidden;
 `;
 
+const MoreBtn = styled.img`
+  position: absolute;
+  top: 11px;
+  right: 10px;
+  cursor: pointer;
+`;
+
+const RemoveBox = styled.div`
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  width: 43px;
+  height: 44px;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+`;
+
 const BookPulished = styled.div`
   font-weight: 400;
   font-size: 12px;
@@ -29,13 +50,32 @@ const BookPulished = styled.div`
 `;
 
 
+
 const MyNewsList = ({i, num}) => {
 
+  let dispatch = useDispatch();
   let bookmark = useSelector(state => state.bookmark);
+  let [remove, setRemove] = useState(false);
 
   return(
     <>
-      <Line />
+      <Line>
+        {/* 삭제버튼 (redux) */}
+        <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
+        {
+          remove === true
+          ? (
+            <RemoveBox
+            onClick={() => dispatch(removeContent({
+              published: bookmark[i].list[num].published,
+              i: i,
+              num: num,
+            }))}
+            >삭제</RemoveBox>
+          )
+          : null
+        }
+      </Line>
       <BookTitle>{bookmark[i].list[num].title}</BookTitle>
       <BookPulished>{bookmark[i].list[num].published}</BookPulished>
     </>

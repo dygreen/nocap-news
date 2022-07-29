@@ -90,7 +90,7 @@ let bookmark = createSlice({
     },
   ],
   reducers : {
-    bookmarking(state, action){
+    bookmarking(state, action){ // 즐겨찾기한 아이템 추가
       let found = state.findIndex(a => a.date === action.payload.date);
 
       if( found >= 0 ){
@@ -100,6 +100,20 @@ let bookmark = createSlice({
         return state
       }
       
+    },
+    removeContent(state, action){ // 아이템 삭제
+      // let remove = state.filter(a => a[action.payload.i].list[action.payload.num].published !== action.payload.published);
+      state[action.payload.i].list.filter(a => a[action.payload.num].published !== action.payload.published);
+
+
+      /* console.log(state);
+      console.log(action.payload.i);
+      console.log(action.payload.num);
+      console.log(action.payload.published);
+      console.log(state[action.payload.i].list[action.payload.num].published);
+      console.log(state[action.payload.i].list); */
+
+      return state
     },
   },
 });
@@ -116,4 +130,4 @@ export default configureStore({
 
 export let { newsData, newsIdSet } = news.actions;
 export let { addContent, blockContent } = comment.actions;
-export let { bookmarking } = bookmark.actions;
+export let { bookmarking, removeContent } = bookmark.actions;
