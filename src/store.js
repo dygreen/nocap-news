@@ -48,7 +48,7 @@ let comment = createSlice({
       } else if ( same >= 0 ){ // 중복인 경우 : 중복 알림
         alert('댓글이 이미 등록되었습니다.');
       } else { // 중복이 아닌 경우 : 댓글 추가
-        copy.push(action.payload);
+        copy.unshift(action.payload);
         return copy
       }
 
@@ -93,25 +93,22 @@ let bookmark = createSlice({
     bookmarking(state, action){ // 즐겨찾기한 아이템 추가
       let found = state.findIndex(a => a.date === action.payload.date);
 
-      if( found >= 0 ){
+      if( found >= 0 ){ // 추가한 날짜가 겹치면 해당 날짜에 데이터 추가
         state[found].list.unshift(action.payload.list[found]);
-      } else {
+      } else { // 겹치지 않으면 날짜+데이터 모두 추가
         state.unshift(action.payload);
         return state
       }
       
     },
     removeContent(state, action){ // 아이템 삭제
-      // let remove = state.filter(a => a[action.payload.i].list[action.payload.num].published !== action.payload.published);
-      state[action.payload.i].list.filter(a => a[action.payload.num].published !== action.payload.published);
+      let remove = state[action.payload.i].list.filter(a => a.published !== action.payload.published); // list 데이터 삭제
+      state[action.payload.i].list = remove; // 삭제한 list 업데이트
 
-
-      /* console.log(state);
-      console.log(action.payload.i);
-      console.log(action.payload.num);
-      console.log(action.payload.published);
-      console.log(state[action.payload.i].list[action.payload.num].published);
-      console.log(state[action.payload.i].list); */
+      // list 데이터가 없으면 해당 object 삭제
+      if(state[action.payload.i].list.length == 0){
+        state.splice(action.payload.i, 1);
+      }
 
       return state
     },

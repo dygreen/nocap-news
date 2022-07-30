@@ -34,12 +34,17 @@ const MoreBtn = styled.img`
 
 const RemoveBox = styled.div`
   position: absolute;
-  top: 40px;
+  top: 32px;
   right: 0px;
   width: 43px;
-  height: 44px;
+  height: px;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
   border-radius: 2px;
+  background: #F0F0F0;
+  color: #8C8C8C;
+  font-size: 12px;
+  text-align: center;
+  line-height: 22px;
 `;
 
 const BookPulished = styled.div`
@@ -66,11 +71,15 @@ const MyNewsList = ({i, num}) => {
           remove === true
           ? (
             <RemoveBox
-            onClick={() => dispatch(removeContent({
-              published: bookmark[i].list[num].published,
-              i: i,
-              num: num,
-            }))}
+              onClick={() => {
+                dispatch(removeContent({
+                  published: bookmark[i].list[num].published,
+                  i: i,
+                  num: num,
+                  })
+                );
+                setRemove(false);
+              }}
             >삭제</RemoveBox>
           )
           : null

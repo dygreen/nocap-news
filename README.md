@@ -151,7 +151,7 @@ reducers : {
     } else if ( same >= 0 ){ // 중복인 경우 : 중복 알림
       alert('댓글이 이미 등록되었습니다.');
     } else { // 중복이 아닌 경우 : 댓글 추가
-      copy.push(action.payload);
+      copy.unshift(action.payload);
       return copy
     }
 
@@ -174,9 +174,9 @@ blockContent(state, action){ // 댓글: 신고/차단
 bookmarking(state, action){
   let found = state.findIndex(a => a.date === action.payload.date);
 
-  if( found >= 0 ){
+  if( found >= 0 ){ // 추가한 날짜가 겹치면 해당 날짜에 데이터 추가
     state[found].list.unshift(action.payload.list[found]);
-  } else {
+  } else { // 겹치지 않으면 날짜+데이터 모두 추가
     state.unshift(action.payload);
     return state
   }
@@ -187,7 +187,13 @@ bookmarking(state, action){
 * '즐겨찾기' 아이콘을 누르면, 해당 뉴스의 데이터를 `localStorage`에 저장하여 페이지를 이탈했다 돌아와도 (아이콘의)누른 상태가 유지되도록 함
 * '즐겨찾기' 아이콘을 두 번 이상 누를 수 없도록 하여, 메인-메뉴-즐겨찾기에 데이터가 중복으로 추가할 수 없도록 함
 
+***
 
+_MyNews(메인-메뉴-즐겨찾기)_
+* 즐겨찾기 데이터 삭제 기능 (+ list에 데이터가 없으면 해당 날짜 박스 삭제)
+
+_MyComment(메인-메뉴-내가 남긴 댓글)_
+* Detail 페이지에서 남긴 댓글을 볼 수 있음 (+ 댓글 삭제 기능)
 
 <!-- ***
 ## 코드 수정 📝
