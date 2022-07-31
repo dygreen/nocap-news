@@ -45,6 +45,7 @@ const RemoveBox = styled.div`
   font-size: 12px;
   text-align: center;
   line-height: 22px;
+  cursor: pointer;
 `;
 
 const BookPulished = styled.div`

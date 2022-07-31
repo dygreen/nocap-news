@@ -60,6 +60,7 @@ const MoreBtn = styled.img`
   position: absolute;
   top: 20px;
   right: 10px;
+  cursor: pointer;
 `;
 
 const BlockBox = styled.div`
@@ -82,7 +83,7 @@ const BlockBox = styled.div`
     font-size: 12px;
     text-align: center;
     color: #8C8C8C;
-    padding: 5px 10px 3px;
+    padding: 5px 10px 3px; 
     cursor: pointer;
   }
 `;
@@ -120,18 +121,22 @@ const CommentList = ({i}) => {
             <button style={{borderBottom: '0.3px solid #8c8c8c'}} onClick={() => {
               if( comment[i].user == 'Dr.Saul Morar' ){
                 alert('신고할 수 없는 대상입니다');
+                setBlock(false);
               } else {
                 dispatch(blockContent({content: comment[i].content}));
                 alert('신고되었습니다');
+                setBlock(false);
               }
             }
             }>신고</button>
             <button onClick={() => {
               if( comment[i].user == 'Dr.Saul Morar' ){
                 alert('차단할 수 없는 대상입니다');
+                setBlock(false);
               } else {
                 dispatch(blockContent({content: comment[i].content}));
                 alert('차단되었습니다');
+                setBlock(false);
               }              
             }
             }>차단</button>

@@ -47,7 +47,7 @@ const Line = styled.div`
 
 const RelatedNews = styled.div`
   width: 320px;
-  margin: 10px 0;
+  margin-top: 10px;
   cursor: pointer;
 `;
 
@@ -83,7 +83,7 @@ const NewsCont = ({i}) => {
 
       <Line />
       
-      <RelatedNews style={{marginBottom: '32px'}}>
+      <RelatedNews style={{paddingBottom: '32px'}}>
         <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
       </RelatedNews>
     </>

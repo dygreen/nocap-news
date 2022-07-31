@@ -38,6 +38,7 @@ const BookMarkIcon = styled.img`
   position: absolute;
   top: 16px;
   right: 20px;
+  cursor: pointer;
 `;
 
 // localStorage : setIcon 조정
