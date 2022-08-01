@@ -126,7 +126,7 @@ const TopBarDetail = () => {
           ? process.env.PUBLIC_URL + '/image/bookmark_line.png'
           : process.env.PUBLIC_URL + '/image/bookmark_fill.png'
         } 
-        onClick={() => {
+        onClick={() => (
           // icon이 true(채워진)이면 dispatch가 되지 않도록 함
           icon == false
           ? dispatch(bookmarking(
@@ -137,10 +137,10 @@ const TopBarDetail = () => {
               ]
             }
           ))
-          : null;
+          : null,
 
-          iconHandler(clickedNews.publishedAt); // clickedNews.title로 중복 데이터를 선별하기엔 ""이 제목 중간에 있는 기사의 경우 정확한 판별이 되지 않아 발행일(고유)로 판단하기로 함
-        }}
+          iconHandler(clickedNews.publishedAt) // clickedNews.title로 중복 데이터를 선별하기엔 ""이 제목 중간에 있는 기사의 경우 정확한 판별이 되지 않아 발행일(고유)로 판단하기로 함
+        )}
         />
 
       </TopFixedItem>

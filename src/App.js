@@ -3,15 +3,14 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import StateBar from './components/StateBar.js';
 import MainNews from './pages/MainNews.js';
-
-const DetailNews = lazy(() => import('./pages/DetailNews.js'));
 import CommentAll from './pages/CommentAll.js';
 import Menu from './pages/Menu.js';
-const MyNews = lazy(() => import('./pages/MyNews.js'));
-const MyComment = lazy(() => import('./pages/MyComment.js'));
 import TopBarDetail from './components/TopBarDetail.js';
 import TopBarMenu from './components/TopBarMenu.js';
 
+const DetailNews = lazy(() => import('./pages/DetailNews.js'));
+const MyNews = lazy(() => import('./pages/MyNews.js'));
+const MyComment = lazy(() => import('./pages/MyComment.js'));
 
 
 const App = () => {
