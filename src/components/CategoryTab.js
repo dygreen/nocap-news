@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 
-
 const categories = [ /* 카테고리 array */
   { 
     name : '', 
@@ -85,7 +84,6 @@ const jsonLocalStorage = {
     localStorage.removeItem(key);
   }
 };
-
 
 
 const CategoryTab = ({setCategory}) => {

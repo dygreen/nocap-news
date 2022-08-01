@@ -55,7 +55,6 @@ const jsonLocalStorage = {
 };
 
 
-
 const TopBarDetail = () => {
 
   let navigate = useNavigate();

@@ -1,13 +1,12 @@
 /* detail 페이지 : 뉴스 기사 자세히 */
 
-import React, { useState } from "react";
+import React from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import TopBarDetail from "../components/TopBarDetail.js";
 import CommentList from '../components/CommentList.js';
 import InputTemplate from "../components/InputTemplate.js";
-
 
 const DetailContainer = styled.div`
   width: 360px;
@@ -149,7 +148,6 @@ const RelatedImgTitleBox = styled.div`
     overflow: hidden;
   }
 `;
-
 
 
 const DetailNews = () => {

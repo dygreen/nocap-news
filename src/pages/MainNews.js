@@ -9,7 +9,6 @@ import NewsCont from "../components/NewsCont.js";
 import CategoryTab from "../components/CategoryTab.js";
 import TopBarMain from "../components/TopBarMain.js";
 
-
 const TopFixedItem = styled.div`
   position: fixed;
   top: 24px;
@@ -36,7 +35,6 @@ const jsonLocalStorage = {
     return JSON.parse(localStorage.getItem(key));
   }
 };
-
 
 
 const MainNews = () => {

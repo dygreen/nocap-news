@@ -98,7 +98,6 @@ const LogoutBtn = styled.button`
 `;
 
 
-
 const Menu = () => {
 
   // 메뉴 모달창이 뜨면 뒤에 콘텐츠가 움직이지 않도록 함

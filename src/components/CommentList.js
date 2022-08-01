@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { blockContent } from "../store.js";
 import styled from 'styled-components';
 
-
 const CommentBox = styled.div`
   position: relative;
   width: 320px;

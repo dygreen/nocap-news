@@ -1,6 +1,6 @@
 /* (Detail) 댓글 입력창  */
 
-import React, { useMemo } from "react";
+import React from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -58,7 +58,6 @@ const UserBox = styled.div`
     margin: 0px 8px;
   }
 `;
-
 
 
 const CommentAll = () => {

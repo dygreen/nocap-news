@@ -56,7 +56,6 @@ const RelatedTitle = styled(Title)`
 `;
 
 
-
 const NewsCont = ({i}) => {
 
   let news = useSelector(state => state.news.data);

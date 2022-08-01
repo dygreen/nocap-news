@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux';
 import MyCommentList from '../components/MyCommentList.js';
 import styled from 'styled-components';
 
+const CommentContainer = styled.div`
+  width: 360px;
+  overflow: hidden;
+`;
 
 const MyCommentTitle = styled.div`
   position: fixed;
@@ -26,14 +30,14 @@ const MyComment = () => {
   let comment = useSelector(state => state.comment);
 
   return (
-    <>
+    <CommentContainer>
       <MyCommentTitle>내가 남긴 댓글</MyCommentTitle>
       <MyCommentContents>
         {
           comment.map((a,i) => <MyCommentList key={i} i={i}/>)
         }
       </MyCommentContents>
-    </>
+    </CommentContainer>
   );
 }
 

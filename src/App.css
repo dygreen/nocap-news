@@ -9,3 +9,10 @@
 .App::-webkit-scrollbar {
   display: none;
 }
+
+.loading{
+  width: 360px;
+  text-align: center;
+  margin-left: -15px;
+  padding: 10px;
+}

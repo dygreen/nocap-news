@@ -56,13 +56,13 @@ const BookPulished = styled.div`
 `;
 
 
-
 const MyNewsList = ({i, num}) => {
 
   let dispatch = useDispatch();
   let bookmark = useSelector(state => state.bookmark);
   let [remove, setRemove] = useState(false);
 
+  
   return(
     <>
       <Line>

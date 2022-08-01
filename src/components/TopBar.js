@@ -17,6 +17,7 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
+
 const TopBar = () => {
 
   let navigate = useNavigate();

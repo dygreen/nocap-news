@@ -4,7 +4,8 @@
 - 즐겨찾기
 */
 
-import { configureStore, createSlice, current } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
 
 // news: 뉴스 데이터 (ajax요청)
 let news = createSlice({

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addContent } from "../store.js";
 import styled from 'styled-components';
 
-
 const Input = styled.input`
   width: 310px;
   height: 40px;
@@ -70,7 +69,6 @@ const InputBottom = styled.div`
     }
   }
 `;
-
 
 
 const InputTemplate = () => {
