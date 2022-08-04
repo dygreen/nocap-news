@@ -66,9 +66,9 @@ const NewsCont = ({i}) => {
     <>
       <NewsItem onClick={() => { navigate('/detail/'+news[i].source.id) }}>
         <Img src={
-          news[i].urlToImage == null
+          news[i].image == null
           ? process.env.PUBLIC_URL + '/image/default_img.png'
-          : news[i].urlToImage
+          : news[i].image
         }/>
         <Title>{news[i].title}</Title>
         <Descript>{news[i].description}</Descript>

@@ -41,7 +41,7 @@ const MyNews = () => {
 
   return (
     <MyNewsContainer>
-      <MyNewTitle>즐겨찾기</MyNewTitle>
+      <MyNewTitle>Favorites</MyNewTitle>
       <MyNewsContents>
         {
           bookmark.map((a,i) => 

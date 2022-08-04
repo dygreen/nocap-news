@@ -84,7 +84,7 @@ const TopBarDetail = () => {
 
     if( existingBook != null ){ // local에 값이 있으면, 중복 데이터인지 검사 후 추가/중복알림
       const found = existingBook.includes(clickedNews.publishedAt);
-      found == true ? alert('이미 추가되었습니다') : bookListAdd(data);
+      found == true ? alert('Already been added.') : bookListAdd(data);
     } else { // local에 값이 없으면 추가
       bookListAdd(data);
     }

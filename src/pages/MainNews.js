@@ -51,10 +51,11 @@ const MainNews = () => {
       setLoading(true); // 기사를 받아오는 중
 
       try {
-        const res = await axios.get(`https://gnews.io/api/v4/top-headlines?topic=world&country=us&token=b58e30ef6a2623ef1c207061888987d8`);
+        const res = await axios.get(`https://gnews.io/api/v4/top-headlines?topic=${category}&country=us&token=b58e30ef6a2623ef1c207061888987d8`);
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData)); // redux로 결과 전달
         dispatch(newsIdSet(JsonData)); // redux로 결과 전달
+        console.log(news);
       }
       catch (err){
         console.log('오류가 발생했습니다.');
@@ -81,7 +82,7 @@ const MainNews = () => {
         <NewsContBox>
           { 
             loading == true 
-            ? <LoadingMsg>로딩중입니다. 잠시만 기다려주세요!</LoadingMsg> 
+            ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg> 
             : null 
           }
           {

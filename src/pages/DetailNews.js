@@ -75,6 +75,10 @@ const AuthorInfo = styled.div`
       color: #8C8C8C;
       margin: 0;
       margin-left: 8px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
     }
   }
 `;
@@ -167,9 +171,9 @@ const DetailNews = () => {
         <Title>{clickedNews.title}</Title>
         <Published>{clickedNews.publishedAt}</Published>
         <Img src={
-          clickedNews.urlToImage == null
+          clickedNews.image == null
           ? process.env.PUBLIC_URL + '/image/default_img.png'
-          : clickedNews.urlToImage
+          : clickedNews.image
         }/>
         <Url>{clickedNews.url}</Url>
         <Descript>{clickedNews.description}</Descript>
@@ -177,8 +181,8 @@ const DetailNews = () => {
         <AuthorBox>
           <img src={process.env.PUBLIC_URL + '/image/userface.png'}/>
           <AuthorInfo>
-            <p>{clickedNews.author}</p>
             <p>{clickedNews.source.name}</p>
+            <p>{clickedNews.source.url}</p>
           </AuthorInfo>
         </AuthorBox>
 
@@ -187,7 +191,7 @@ const DetailNews = () => {
         <Line />
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
 
-        <CommentCount><span>{comment.length}</span>개의 댓글</CommentCount>
+        <CommentCount><span>{comment.length}</span>comments</CommentCount>
         <InputTemplate /> {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
         
         <CommentDefault> {/* 댓글.... */}
@@ -198,18 +202,18 @@ const DetailNews = () => {
 
         {/* 더보기를 누르면 댓글 페이지로 이동 */}
         <ShowMoreBtn>
-          <p onClick={() => navigate(`/detail/${id}/comment`)}>더보기 &gt;</p>
+          <p onClick={() => navigate(`/detail/${id}/comment`)}>MORE &gt;</p>
         </ShowMoreBtn>
 
         {/* 관련 뉴스 + 이미지 */}
         <Line style={{marginTop: "24px"}}/>
         <RelatedImgTitleBox>
-          <img src={clickedNews.urlToImage} />
+          <img src={clickedNews.image} />
           <p>{clickedNews.title}</p>
         </RelatedImgTitleBox>
         <Line />
         <RelatedImgTitleBox>
-          <img src={clickedNews.urlToImage} />
+          <img src={clickedNews.image} />
           <p>{clickedNews.title}</p>
         </RelatedImgTitleBox>
 

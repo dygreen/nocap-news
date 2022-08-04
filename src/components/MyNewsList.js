@@ -81,7 +81,7 @@ const MyNewsList = ({i, num}) => {
                 );
                 setRemove(false);
               }}
-            >삭제</RemoveBox>
+            >delete</RemoveBox>
           )
           : null
         }

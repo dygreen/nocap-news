@@ -31,7 +31,7 @@ const MyComment = () => {
 
   return (
     <CommentContainer>
-      <MyCommentTitle>내가 남긴 댓글</MyCommentTitle>
+      <MyCommentTitle>My Comments</MyCommentTitle>
       <MyCommentContents>
         {
           comment.map((a,i) => <MyCommentList key={i} i={i}/>)

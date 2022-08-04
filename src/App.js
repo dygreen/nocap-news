@@ -18,7 +18,7 @@ const App = () => {
     <div className="App">
       <StateBar/> 
 
-      <Suspense fallback={ <p className='loading'>로딩중입니다. 잠시만 기다려주세요!</p> }>
+      <Suspense fallback={ <p className='loading'>Loading.. please wait for a moment!</p> }>
         <Routes>
           <Route path="/" element={<MainNews/>} />
   
@@ -33,7 +33,7 @@ const App = () => {
             <Route path=":id/comment" element={<CommentAll/>} />
           </Route>
           
-          <Route path="*" element={ <p className='loading'>잘못된 페이지 경로입니다.</p> } />
+          <Route path="*" element={ <p className='loading'>Page Not Found.</p> } />
         </Routes>
       </Suspense>
     </div>

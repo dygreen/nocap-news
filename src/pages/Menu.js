@@ -136,21 +136,21 @@ const Menu = () => {
 
         <MenuCategoryBox onClick={() => navigate('/m/my-news')}>
           <Icon src={process.env.PUBLIC_URL + '/image/bookmark.png'}/>
-          <Text>즐겨찾기</Text>
+          <Text>Favorites</Text>
         </MenuCategoryBox>
 
         <MenuCategoryBox onClick={() => navigate('/m/my-comment')}>
           <Icon src={process.env.PUBLIC_URL + '/image/comment_line.png'}/>
-          <Text>내가 남긴 댓글</Text>
+          <Text>My Comments</Text>
         </MenuCategoryBox>
 
         <MenuCategoryBox>
           <Icon src={process.env.PUBLIC_URL + '/image/darkmode.png'}/>
-          <Text>다크모드</Text>
+          <Text>Dark Mode</Text>
           <CheckBox src={process.env.PUBLIC_URL + '/image/check_blank.png'}/>
         </MenuCategoryBox>
 
-        <LogoutBtn>로그아웃</LogoutBtn>
+        <LogoutBtn>Logout</LogoutBtn>
 
       </MenuBox>
     </>

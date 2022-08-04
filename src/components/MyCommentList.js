@@ -81,7 +81,7 @@ const MyCommentList = ({i}) => {
                     dispatch(blockContent({content: comment[i].content}));
                     setRemove(false);
                   }}
-                >삭제</RemoveBox>
+                >delete</RemoveBox>
               )
               : null
             }

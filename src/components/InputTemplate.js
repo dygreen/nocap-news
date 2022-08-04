@@ -94,11 +94,11 @@ const InputTemplate = () => {
       {
         inputChange === false
         
-        ? <Input type={'text'} placeholder={'댓글을 입력해주세요.'} onClick={() => {setInputChange(!inputChange)}}/>
+        ? <Input type={'text'} placeholder={'Please enter your comment.'} onClick={() => {setInputChange(!inputChange)}}/>
 
         : ( /* 큰 입력창 + 글자수 세기 + 댓글 등록(redux) */
         <>
-          <InputChange type={'text'} placeholder={'댓글을 입력해주세요.'} autoFocus maxLength={300} onChange={(e) => {
+          <InputChange type={'text'} placeholder={'Please enter your comment.'} autoFocus maxLength={300} onChange={(e) => {
             setCount(e.target.value.length); // 글자수
             setContent(e.target.value); // 댓글내용
             } }/>
@@ -110,7 +110,7 @@ const InputTemplate = () => {
               date : `${todayFull.year}-${todayFull.month}-${todayFull.date}`,
               content : content
             })
-            )}>완료</div>
+            )}>post</div>
           </InputBottom>
         </>
         )

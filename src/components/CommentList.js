@@ -119,26 +119,26 @@ const CommentList = ({i}) => {
           <BlockBox>
             <button style={{borderBottom: '0.3px solid #8c8c8c'}} onClick={() => {
               if( comment[i].user == 'Dr.Saul Morar' ){
-                alert('신고할 수 없는 대상입니다');
+                alert('This is a non-reportable target.');
                 setBlock(false);
               } else {
                 dispatch(blockContent({content: comment[i].content}));
-                alert('신고되었습니다');
+                alert('Reported.');
                 setBlock(false);
               }
             }
-            }>신고</button>
+            }>report</button>
             <button onClick={() => {
               if( comment[i].user == 'Dr.Saul Morar' ){
-                alert('차단할 수 없는 대상입니다');
+                alert('This is an unblockable target.');
                 setBlock(false);
               } else {
                 dispatch(blockContent({content: comment[i].content}));
-                alert('차단되었습니다');
+                alert('Blocked.');
                 setBlock(false);
               }              
             }
-            }>차단</button>
+            }>block</button>
           </BlockBox>
         )
         : null

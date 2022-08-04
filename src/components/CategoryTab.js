@@ -6,31 +6,31 @@ import styled from 'styled-components';
 const categories = [ /* 카테고리 array */
   { 
     name : '', 
-    text : '전체' 
+    text : 'world' 
   }, 
   {
     name: 'business',
-    text: '비즈니스'
+    text: 'business'
   },
   {
     name: 'entertainment',
-    text: '엔터'
+    text: 'entertainment'
   },
   {
     name: 'health',
-    text: '건강'
+    text: 'health'
   },
   {
     name: 'science',
-    text: '과학'
+    text: 'science'
   },
   {
     name: 'sports',
-    text: '스포츠'
+    text: 'sports'
   },
   {
     name: 'technology',
-    text: '테크'
+    text: 'tech'
   }
 ];
 
@@ -44,7 +44,7 @@ const TabContainer = styled.div`
 
 const TabBox = styled.div`
   display: flex;
-  width: 381px;
+  width: 500px;
   height: 28px;
   margin-top: 8px;
   padding-left: 20px;
