@@ -51,7 +51,7 @@ const MainNews = () => {
       setLoading(true); // 기사를 받아오는 중
 
       try {
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
+        const res = await axios.get(`https://gnews.io/api/v4/top-headlines?topic=world&country=us&token=b58e30ef6a2623ef1c207061888987d8`);
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData)); // redux로 결과 전달
         dispatch(newsIdSet(JsonData)); // redux로 결과 전달
