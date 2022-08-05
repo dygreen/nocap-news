@@ -55,7 +55,6 @@ const MainNews = () => {
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData)); // redux로 결과 전달
         dispatch(newsIdSet(JsonData)); // redux로 결과 전달
-        console.log(news);
       }
       catch (err){
         console.log('오류가 발생했습니다.');

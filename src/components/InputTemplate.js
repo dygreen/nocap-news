@@ -110,7 +110,7 @@ const InputTemplate = () => {
               date : `${todayFull.year}-${todayFull.month}-${todayFull.date}`,
               content : content
             })
-            )}>post</div>
+            )}>POST</div>
           </InputBottom>
         </>
         )

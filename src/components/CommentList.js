@@ -73,16 +73,14 @@ const BlockBox = styled.div`
   button{
     display: flex;
     flex-direction: column;
-    align-item: center;
-    justify-content: center;
     width: 43px;
     height: 22px;
     border: 0;
     font-weight: 400;
     font-size: 12px;
     text-align: center;
+    line-height: 22px;
     color: #8C8C8C;
-    padding: 5px 10px 3px; 
     cursor: pointer;
   }
 `;
