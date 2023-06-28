@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const TopBarBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 56px;
   position: relative;
@@ -11,15 +14,11 @@ const TopBarBox = styled.div`
 `;
 
 const Logo = styled.img`
-  position: absolute;
-  top: 17px;
-  left: 125px;
   cursor: pointer;
 `;
 
 
 const TopBar = () => {
-
   let navigate = useNavigate();
 
   return(

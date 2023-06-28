@@ -7,36 +7,33 @@ import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import styled from 'styled-components';
 import TopBar from "./TopBar";
-import { bookmarking } from "../store";
+import { bookmarking } from "../../../store";
 
 const TopFixedItem = styled.div`
-  position: fixed;
-  top: 24px;
-  left: 0;
-  width: 360px;
+  width: 100%;
   height: 56px;
   background: #fff;
   border-bottom: 2px solid #D7352A;
-  z-index: 9999;
+  z-index: 300;
 `;
 
 const BackIcon = styled.img`
   position: absolute;
-  top: 16px;
+  top: 40px;
   left: 20px;
   cursor: pointer;
 `;
 
 const CommentIcon = styled.img`
   position: absolute;
-  top: 16px;
+  top: 40px;
   right: 56px;
   cursor: pointer;
 `;
 
 const BookMarkIcon = styled.img`
   position: absolute;
-  top: 16px;
+  top: 40px;
   right: 20px;
   cursor: pointer;
 `;

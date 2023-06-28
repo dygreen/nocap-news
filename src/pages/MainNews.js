@@ -5,19 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { newsData, newsIdSet } from "../store.js";
 import axios from "axios";
 import styled from 'styled-components';
+import Header from "../layout/Header/Header";
 import NewsCont from "../components/NewsCont.js";
 import CategoryTab from "../components/CategoryTab.js";
-import TopBarMain from "../components/TopBarMain.js";
 
 const TopFixedItem = styled.div`
-  position: fixed;
-  top: 24px;
+  position: sticky;
+  top: 0;
   left: 0;
   background: #fff;
-`;
-
-const NewsContBox = styled.div`
-  margin-top: 118px;
+  z-index: 300;
 `;
 
 const LoadingMsg = styled.p`
@@ -38,7 +35,6 @@ const jsonLocalStorage = {
 
 
 const MainNews = () => {
-
   let dispatch = useDispatch();
   let news = useSelector(state => state.news.data); // 뉴스(redux)
   let [loading, setLoading] = useState(true); // 로딩중
@@ -51,7 +47,7 @@ const MainNews = () => {
       setLoading(true); // 기사를 받아오는 중
 
       try {
-        const res = await axios.get(`https://gnews.io/api/v4/top-headlines?topic=${category}&country=us&token=b58e30ef6a2623ef1c207061888987d8`);
+        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData)); // redux로 결과 전달
         dispatch(newsIdSet(JsonData)); // redux로 결과 전달
@@ -72,27 +68,23 @@ const MainNews = () => {
 
 
   return(
-    <>
-      <div className="row">
-        <TopFixedItem>
-          <TopBarMain/>
-          <CategoryTab setCategory={setCategory}/>
-        </TopFixedItem>
-        <NewsContBox>
-          { 
-            loading == true 
-            ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg> 
-            : null 
-          }
-          {
-            news.map((a, i) => <NewsCont i={i} key={i}/>)
-          }
-        </NewsContBox>
+    <div className="row">
+      <TopFixedItem>
+        <Header/>
+        <CategoryTab setCategory={setCategory}/>
+      </TopFixedItem>
+      <div>
+        {
+          loading
+          ? <LoadingMsg>로딩중입니다. 잠시만 기다려주세요!</LoadingMsg>
+          : null
+        }
+        {
+          news.map((a, i) => <NewsCont i={i} key={i}/>)
+        }
       </div>
-    </>
+    </div>
   );
-
-
 }
 
 

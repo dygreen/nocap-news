@@ -4,13 +4,19 @@ import React from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import TopBarDetail from "../components/TopBarDetail.js";
+import Header from "../layout/Header/Header";
 import CommentList from '../components/CommentList.js';
 import InputTemplate from "../components/InputTemplate.js";
 
 const DetailContainer = styled.div`
-  width: 360px;
+  width: 100%;
   overflow: hidden;
+`;
+
+const DetailHeader = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 0;
 `;
 
 const DetailCont = styled.div`
@@ -155,7 +161,6 @@ const RelatedImgTitleBox = styled.div`
 
 
 const DetailNews = () => {
-
   let news = useSelector(state => state.news.data);
   let comment = useSelector(state => state.comment);
   let { id } = useParams(); // 현재 URL에 적힌 모든 파라미터를 object형식으로 저장해주는 함수
@@ -165,8 +170,10 @@ const DetailNews = () => {
 
   return(
     <DetailContainer>
-      <TopBarDetail/>
-      
+      <DetailHeader>
+        <Header/>
+      </DetailHeader>
+
       <DetailCont>
         <Title>{clickedNews.title}</Title>
         <Published>{clickedNews.publishedAt}</Published>

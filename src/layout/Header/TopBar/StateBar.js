@@ -3,12 +3,9 @@
 import styled from 'styled-components';
 
 const StateBarBox = styled.div`
-  position: fixed;
-  top: 0;
-  width: 360px;
+  width: 100%;
   height: 24px;
   background: #fff;
-  z-index: 9999;
 `;
 
 const State = styled.img`
@@ -17,9 +14,7 @@ const State = styled.img`
   right: 8px;
 `;
 
-
 const StateBar = () => {
-
   return(
     <StateBarBox>
       <State src={process.env.PUBLIC_URL + '/image/state.png'}/>

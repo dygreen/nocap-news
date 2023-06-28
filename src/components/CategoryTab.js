@@ -35,7 +35,7 @@ const categories = [ /* 카테고리 array */
 ];
 
 const TabContainer = styled.div`
-  width: 360px;
+  width: 100%;
   overflow-x: scroll;
   ::-webkit-scrollbar {
     display: none;
@@ -44,7 +44,7 @@ const TabContainer = styled.div`
 
 const TabBox = styled.div`
   display: flex;
-  width: 500px;
+  width: 100%;
   height: 28px;
   margin-top: 8px;
   padding-left: 20px;
