@@ -1,13 +1,13 @@
 /* (메인) 뉴스 카테고리 */
-
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from 'styled-components';
+import {Data} from "../assets/common";
 
 const categories = [ /* 카테고리 array */
-  { 
-    name : '', 
-    text : 'world' 
-  }, 
+  {
+    name : '',
+    text : 'world'
+  },
   {
     name: 'business',
     text: 'business'
@@ -87,44 +87,57 @@ const jsonLocalStorage = {
 
 
 const CategoryTab = ({setCategory}) => {
-
-  const [currentTab, setCurrentTab] = useState(jsonLocalStorage.getItem('num')); 
+  const [currentTab, setCurrentTab] = useState(Data.get('category'));
 
   const selectTabHandler = (index) => {
     setCurrentTab(index);
   };
 
-  const settingLocal = (key, value) => {
+ /* const settingLocal = (key, value) => {
     jsonLocalStorage.removeItem(key);
     jsonLocalStorage.setItem(key, value);
-  };
+  };*/
 
 
-  return(
+  // localStorage + props에 category 세팅
+  const settingCategory = ($name) => {
+    // 카테고리 탭을 누를 때마다 페이지 맨 위로
+    window.scrollTo(0, 0);
+    // 선택한 카테고리 저장
+    Data.set('category', $name);
+    setCategory($name);
+  }
+
+  useEffect(() => {
+    if (Data.get('category') === null) Data.set('category', "")
+  },[])
+
+  return (
     <TabContainer>
       <TabBox>
         {
-          categories.map((tabs,i) => 
-            <TabItem style={
-              currentTab === i ? selectedTab : null
-            }
-            onClick={() => {
-              window.scrollTo(0, 0); // 카테고리 탭을 누를 때마다 페이지 맨 위로
-              // 선택한 카테고리 저장
-              settingLocal('category', tabs.name);
-              setCategory(jsonLocalStorage.getItem('category'));
-              // 선택한 카테고리 index 저장(style)
-              settingLocal('num', i);
-              selectTabHandler(jsonLocalStorage.getItem('num'));
-            }} 
-            key={i}
-            >{tabs.text}</TabItem>
+          categories.map(tabs =>
+            <TabItem
+              style={Data.get('category') === tabs.name ? selectedTab : null}
+              onClick={() => {
+                settingCategory(tabs.name)
+                /*window.scrollTo(0, 0); // 카테고리 탭을 누를 때마다 페이지 맨 위로
+                // 선택한 카테고리 저장
+                settingLocal('category', tabs.name);
+                setCategory(jsonLocalStorage.getItem('category'));
+                // 선택한 카테고리 index 저장(style)
+                settingLocal('num', i);
+                selectTabHandler(jsonLocalStorage.getItem('num'));*/
+              }}
+              key={tabs.name}
+            >
+              {tabs.text}
+            </TabItem>
           )
         }
       </TabBox>
     </TabContainer>
   );
-
 }
 
 export default CategoryTab;

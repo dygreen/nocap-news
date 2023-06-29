@@ -1,5 +1,4 @@
 /* (메인) 뉴스 컨텐츠 html */
-
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
@@ -55,18 +54,15 @@ const RelatedTitle = styled(Title)`
   margin: 11px 20px;
 `;
 
-
 const NewsCont = ({i}) => {
-
   let news = useSelector(state => state.news.data);
   let navigate = useNavigate();
 
-  
   return(
     <>
       <NewsItem onClick={() => { navigate('/detail/'+news[i].source.id) }}>
         <Img src={
-          news[i].image == null
+          news[i].image === null
           ? process.env.PUBLIC_URL + '/image/default_img.png'
           : news[i].image
         }/>
@@ -81,7 +77,7 @@ const NewsCont = ({i}) => {
       </RelatedNews>
 
       <Line />
-      
+
       <RelatedNews style={{paddingBottom: '32px'}}>
         <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
       </RelatedNews>

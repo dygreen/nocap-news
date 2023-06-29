@@ -1,5 +1,4 @@
-/* detail 페이지 : 뉴스 기사 자세히 */
-
+/* detail : 뉴스 기사 상세 페이지 */
 import React from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
@@ -159,7 +158,6 @@ const RelatedImgTitleBox = styled.div`
   }
 `;
 
-
 const DetailNews = () => {
   let news = useSelector(state => state.news.data);
   let comment = useSelector(state => state.comment);
@@ -200,9 +198,9 @@ const DetailNews = () => {
 
         <CommentCount><span>{comment.length}</span>comments</CommentCount>
         <InputTemplate /> {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
-        
+
         <CommentDefault> {/* 댓글.... */}
-          { 
+          {
             comment.map((a,i) => <CommentList i={i} key={i} />)
           }
         </CommentDefault>
