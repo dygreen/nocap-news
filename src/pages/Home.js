@@ -1,5 +1,4 @@
 /* 메인화면: 뉴스 리스트 보여줌 */
-
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { newsData, newsIdSet } from "../store.js";
@@ -25,7 +24,6 @@ const LoadingMsg = styled.p`
   padding: 10px;
 `;
 
-
 // localStorage
 const jsonLocalStorage = {
   getItem: (key) => {
@@ -33,13 +31,11 @@ const jsonLocalStorage = {
   }
 };
 
-
-const MainNews = () => {
+const Home = () => {
   let dispatch = useDispatch();
   let news = useSelector(state => state.news.data); // 뉴스(redux)
   let [loading, setLoading] = useState(true); // 로딩중
   let [category, setCategory] = useState(jsonLocalStorage.getItem('category')); // 카테고리
-
 
   // useEffect: 페이지가 렌더링되면 뉴스 데이터를 불러오기(axios)
   useEffect(() => {
@@ -47,7 +43,7 @@ const MainNews = () => {
       setLoading(true); // 기사를 받아오는 중
 
       try {
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=b1e207f1b83d47a081c09e0040dd68e7`);
+        const res = await axios.get(`https://gnews.io/api/v4/top-headlines?topic=${category}&country=us&token=b58e30ef6a2623ef1c207061888987d8`);
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData)); // redux로 결과 전달
         dispatch(newsIdSet(JsonData)); // redux로 결과 전달
@@ -88,4 +84,4 @@ const MainNews = () => {
 }
 
 
-export default MainNews;
+export default Home;

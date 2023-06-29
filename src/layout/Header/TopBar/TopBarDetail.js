@@ -1,7 +1,6 @@
 /* (메인) 탑 바 - 로고, 메뉴 아이콘
 즐겨찾기 버튼: 클릭시 해당 뉴스 제목+발행일 dispatch (Redux)
 */
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
@@ -53,10 +52,9 @@ const jsonLocalStorage = {
 
 
 const TopBarDetail = () => {
-
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  
+
   let news = useSelector(state => state.news.data);
   let { id } = useParams();
   let clickedNews = news.find(data => data.source.id == id);
@@ -68,7 +66,7 @@ const TopBarDetail = () => {
 
 
   // 즐겨찾기: localStorage에 데이터 추가
-  function bookListAdd(data){ 
+  function bookListAdd(data){
     const ListAdd = [...bookList, data];
     jsonLocalStorage.setItem('newsId', ListAdd);
     setIcon(true);
@@ -76,7 +74,7 @@ const TopBarDetail = () => {
 
 
   // 즐겨찾기 리스트 중복 추가 방지
-  function iconHandler(data){ 
+  function iconHandler(data){
     const existingBook = localStorage.getItem('newsId');
 
     if( existingBook != null ){ // local에 값이 있으면, 중복 데이터인지 검사 후 추가/중복알림
@@ -106,7 +104,7 @@ const TopBarDetail = () => {
       found == true ? setIcon(true) : setIcon(false);
     }
   },[]);
-  
+
 
 
   return (
@@ -122,7 +120,7 @@ const TopBarDetail = () => {
           icon == false
           ? process.env.PUBLIC_URL + '/image/bookmark_line.png'
           : process.env.PUBLIC_URL + '/image/bookmark_fill.png'
-        } 
+        }
         onClick={() => (
           // icon이 true(채워진)이면 dispatch가 되지 않도록 함
           icon == false
@@ -141,7 +139,7 @@ const TopBarDetail = () => {
         />
 
       </TopFixedItem>
-      
+
       <Outlet/> {/* 서브 컴포넌트 표기할 곳 */}
     </>
   );

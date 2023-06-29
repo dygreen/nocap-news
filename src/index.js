@@ -5,7 +5,7 @@ import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from './store.js'
-import ScrollToTop from './ScrollTop.js';
+import ScrollToTop from "./assets/common";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

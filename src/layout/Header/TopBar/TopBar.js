@@ -1,5 +1,4 @@
 /* 탑 바(기본틀) - 로고  */
-
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -17,7 +16,6 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-
 const TopBar = () => {
   let navigate = useNavigate();
 
@@ -26,7 +24,6 @@ const TopBar = () => {
       <Logo src={process.env.PUBLIC_URL + '/image/logo.png'} onClick={() => { navigate('/') }}/>
     </TopBarBox>
   );
-
 }
 
 export default TopBar;

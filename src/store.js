@@ -1,14 +1,26 @@
-/* redux toolkit : state & 변경 함수 보관 
+/* redux toolkit : state & 변경 함수 보관
+- 메뉴
 - news
 - 댓글
 - 즐겨찾기
 */
-
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
+// 메뉴: 메인 페이지 메뉴 모달창 컨트롤
+const menu = createSlice({
+  name : 'menu',
+  initialState : {
+    menuFlag: false
+  },
+  reducers : {
+    toggleMenu(state, action) {
+      state.menuFlag = !action.payload
+    }
+  }
+})
 
 // news: 뉴스 데이터 (ajax요청)
-let news = createSlice({
+const news = createSlice({
   name : 'news',
   initialState : {
     loading : 'first',
@@ -32,7 +44,7 @@ let news = createSlice({
 
 
 // comment: 댓글 데이터 추가
-let comment = createSlice({
+const comment = createSlice({
   name : 'comment',
   initialState : [
     { id: 0, user: 'Grace', date: '2022-03-19', content: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco' },
@@ -65,7 +77,7 @@ let comment = createSlice({
 
 
 // bookmark: 즐겨찾기 데이터
-let bookmark = createSlice({
+const bookmark = createSlice({
   name : 'bookmark',
   initialState : [
     {
@@ -100,7 +112,7 @@ let bookmark = createSlice({
         state.unshift(action.payload);
         return state
       }
-      
+
     },
     removeContent(state, action){ // 아이템 삭제
       let remove = state[action.payload.i].list.filter(a => a.published !== action.payload.published); // list 데이터 삭제
@@ -116,16 +128,16 @@ let bookmark = createSlice({
   },
 });
 
-
-
 export default configureStore({
-  reducer: { 
+  reducer: {
+    menu : menu.reducer,
     news : news.reducer,
     comment : comment.reducer,
     bookmark : bookmark.reducer,
   }
-}); 
+});
 
+export let { toggleMenu } = menu.actions;
 export let { newsData, newsIdSet } = news.actions;
 export let { addContent, blockContent } = comment.actions;
 export let { bookmarking, removeContent } = bookmark.actions;
