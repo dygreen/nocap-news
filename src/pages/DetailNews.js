@@ -165,8 +165,7 @@ const DetailNews = () => {
   let clickedNews = news.find(data => data.source.id == id); // 현재 URL의 /:id에 적힌 값과 데이터의 id 값이 같은지 비교, 참이면 변수에 저장함 -> html 표시
   let navigate = useNavigate();
 
-
-  return(
+  return (
     <DetailContainer>
       <DetailHeader>
         <Header/>
@@ -230,7 +229,6 @@ const DetailNews = () => {
       </DetailCont>
     </DetailContainer>
   );
-
 }
 
 export default DetailNews;

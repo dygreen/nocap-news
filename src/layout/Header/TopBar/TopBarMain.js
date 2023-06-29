@@ -1,10 +1,9 @@
 /* (메인) 탑 바 - 로고, 메뉴 아이콘, 메뉴 모달창 */
-import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {toggleMenu} from "../../../store";
 import styled from 'styled-components';
 import TopBar from "./TopBar.js";
 import Menu from "../../../pages/Menu";
-import {useDispatch, useSelector} from "react-redux";
-import {toggleMenu} from "../../../store";
 
 const MenuIcon = styled.img`
   position: absolute;

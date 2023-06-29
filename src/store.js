@@ -1,20 +1,24 @@
 /* redux toolkit : state & 변경 함수 보관
-- 메뉴
+- 메뉴, 카테고리 탭
 - news
 - 댓글
 - 즐겨찾기
 */
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// 메뉴: 메인 페이지 메뉴 모달창 컨트롤
+// menu: 메인 페이지 메뉴 모달창 컨트롤 + 카테고리 탭
 const menu = createSlice({
   name : 'menu',
   initialState : {
-    menuFlag: false
+    menuFlag: false,
+    category: ''
   },
   reducers : {
     toggleMenu(state, action) {
       state.menuFlag = !action.payload
+    },
+    settingCategory(state, action) {
+      state.category = action.payload
     }
   }
 })
@@ -137,7 +141,7 @@ export default configureStore({
   }
 });
 
-export let { toggleMenu } = menu.actions;
+export let { toggleMenu , settingCategory} = menu.actions;
 export let { newsData, newsIdSet } = news.actions;
 export let { addContent, blockContent } = comment.actions;
 export let { bookmarking, removeContent } = bookmark.actions;

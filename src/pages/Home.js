@@ -17,25 +17,17 @@ const TopFixedItem = styled.div`
 `;
 
 const LoadingMsg = styled.p`
-  width: 360px;
+  width: 100%;
   text-align: center;
-  margin: 0px;
-  margin-left: -15px;
+  margin: 0;
   padding: 10px;
 `;
 
-// localStorage
-const jsonLocalStorage = {
-  getItem: (key) => {
-    return JSON.parse(localStorage.getItem(key));
-  }
-};
-
 const Home = () => {
-  let dispatch = useDispatch();
-  let news = useSelector(state => state.news.data); // 뉴스(redux)
-  let [loading, setLoading] = useState(true); // 로딩중
-  let [category, setCategory] = useState(""); // 카테고리
+  const dispatch = useDispatch();
+  const news = useSelector(state => state.news.data);
+  const category = useSelector(state => state.menu.category);
+  const [loading, setLoading] = useState(true);
 
   // 뉴스 데이터 불러오기
   useEffect(() => {
@@ -54,13 +46,10 @@ const Home = () => {
 
       await axios(option)
         .then((res) => {
-          try {
-            const JsonData = res.data.articles;
-            dispatch(newsData(JsonData)); // redux로 결과 전달
-            dispatch(newsIdSet(JsonData)); // redux로 결과 전달
-          } catch (err) {
-            console.log('err : ', err)
-          }
+          // redux로 결과 전달
+          const JsonData = res.data.articles;
+          dispatch(newsData(JsonData));
+          dispatch(newsIdSet(JsonData));
         })
         .catch((err) => {
           console.log('axios err : ', err)
@@ -72,22 +61,16 @@ const Home = () => {
     fetchData();
   },[category]);
 
-  // news에 값이 없으면 null을 반환함(값이 없는데 null을 반환하지 않으면 잠시 컴포넌트 렌더링 과정에서 오류가 발생함)
-  /*if(!news){
-    return null;
-  }*/
-
-
   return(
     <div className="row">
       <TopFixedItem>
         <Header/>
-        <CategoryTab setCategory={setCategory}/>
+        <CategoryTab/>
       </TopFixedItem>
       <div>
         {
           loading
-          ? <LoadingMsg>로딩중입니다. 잠시만 기다려주세요!</LoadingMsg>
+          ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
           : null
         }
         {
