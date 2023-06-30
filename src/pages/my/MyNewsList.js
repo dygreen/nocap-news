@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeContent } from "../store.js";
+import { removeContent } from "../../store.js";
 import styled from 'styled-components';
 
 const Line = styled.div`
@@ -62,7 +62,7 @@ const MyNewsList = ({i, num}) => {
   let bookmark = useSelector(state => state.bookmark);
   let [remove, setRemove] = useState(false);
 
-  
+
   return(
     <>
       <Line>

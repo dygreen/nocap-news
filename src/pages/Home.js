@@ -5,8 +5,8 @@ import { newsData, newsIdSet } from "../store.js";
 import axios from "axios";
 import styled from 'styled-components';
 import Header from "../layout/Header/Header";
-import NewsCont from "../components/NewsCont.js";
-import CategoryTab from "../components/CategoryTab.js";
+import NewsCont from "./main/NewsCont.js";
+import CategoryTab from "./main/CategoryTab.js";
 
 const TopFixedItem = styled.div`
   position: sticky;
@@ -74,7 +74,7 @@ const Home = () => {
           : null
         }
         {
-          news?.map((data, idx) => <NewsCont i={idx} key={idx}/>)
+          news?.map((data, idx) => <NewsCont i={data.source.id} key={data.source.id}/>)
         }
       </div>
     </div>

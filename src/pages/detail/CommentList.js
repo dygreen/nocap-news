@@ -1,7 +1,7 @@
 /* (Detail) 댓글 간단히 보여주기 */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { blockContent } from "../store.js";
+import { blockContent } from "../../store.js";
 import styled from 'styled-components';
 
 const CommentBox = styled.div`

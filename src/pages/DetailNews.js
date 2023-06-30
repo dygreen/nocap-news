@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../layout/Header/Header";
-import CommentList from '../components/CommentList.js';
-import InputTemplate from "../components/InputTemplate.js";
+import CommentList from './detail/CommentList.js';
+import InputTemplate from "./detail/InputTemplate.js";
 
 const DetailContainer = styled.div`
   width: 100%;

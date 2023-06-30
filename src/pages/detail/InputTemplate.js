@@ -1,7 +1,7 @@
 /* (Detail, Comment) 댓글 입력창 누르면 큰 입력창 등장 + 글자수 세기 + 댓글 등록(redux) */
 import React, { useState, useDeferredValue } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addContent } from "../store.js";
+import { addContent } from "../../store.js";
 import styled from 'styled-components';
 
 const InputWrap = styled.div`

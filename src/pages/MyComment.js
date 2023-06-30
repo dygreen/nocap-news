@@ -1,7 +1,7 @@
 /* (메인-메뉴-내가 남긴 댓글) 내가 남긴 댓글을 볼 수 있는 페이지 */
 
 import { useSelector } from 'react-redux';
-import MyCommentList from '../components/MyCommentList.js';
+import MyCommentList from './my/MyCommentList.js';
 import styled from 'styled-components';
 
 const CommentContainer = styled.div`

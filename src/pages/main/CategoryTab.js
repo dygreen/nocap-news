@@ -1,6 +1,6 @@
 /* (메인) 뉴스 카테고리 */
 import {useDispatch, useSelector} from "react-redux";
-import {settingCategory} from "../store";
+import {settingCategory} from "../../store";
 import styled from 'styled-components';
 
 const categories = [ /* 카테고리 array */

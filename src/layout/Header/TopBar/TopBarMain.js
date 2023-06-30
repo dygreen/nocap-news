@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {toggleMenu} from "../../../store";
 import styled from 'styled-components';
 import TopBar from "./TopBar.js";
-import Menu from "../../../pages/Menu";
+import Menu from "../../../pages/main/Menu";
 
 const MenuIcon = styled.img`
   position: absolute;

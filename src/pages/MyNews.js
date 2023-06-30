@@ -1,7 +1,7 @@
 /* (메인-메뉴-즐겨찾기) 즐겨찾기 메뉴 클릭시, DetailNews 상단 즐겨찾기 아이콘을 누른 뉴스 제목들을 볼 수 있는 페이지 */
 
 import { useSelector } from "react-redux";
-import MyNewsList from "../components/MyNewsList.js";
+import MyNewsList from "./my/MyNewsList.js";
 import styled from 'styled-components';
 
 const MyNewsContainer = styled.div`
@@ -44,7 +44,7 @@ const MyNews = () => {
       <MyNewTitle>Favorites</MyNewTitle>
       <MyNewsContents>
         {
-          bookmark.map((a,i) => 
+          bookmark.map((a,i) =>
             <>
               <AddDate key={i}>{bookmark[i].date}</AddDate>
               {

@@ -4,8 +4,8 @@ import React from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import InputTemplate from "../components/InputTemplate.js";
-import CommentList from "../components/CommentList.js";
+import InputTemplate from "./detail/InputTemplate.js";
+import CommentList from "./detail/CommentList.js";
 
 const AllContainer = styled.div`
   margin-top: 80px;
@@ -82,8 +82,8 @@ const CommentAll = () => {
 
       {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
       <InputTemplate />
-      
-      { 
+
+      {
         comment.map((a,i) => <CommentList i={i} key={i} />)
       }
 

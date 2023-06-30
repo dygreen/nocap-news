@@ -1,4 +1,4 @@
-/* (메인) 뉴스 컨텐츠 html */
+/* (메인) 뉴스 컨텐츠 */
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
