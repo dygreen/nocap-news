@@ -1,5 +1,4 @@
 /* (Detail) 댓글 간단히 보여주기 */
-
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { blockContent } from "../store.js";
@@ -7,7 +6,6 @@ import styled from 'styled-components';
 
 const CommentBox = styled.div`
   position: relative;
-  width: 320px;
   margin: 0 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid #d9d9d9;
@@ -87,7 +85,6 @@ const BlockBox = styled.div`
 
 
 const CommentList = ({i}) => {
-
   let dispatch = useDispatch();
   let comment = useSelector(state => state.comment);
   let [block, setBlock] = useState(false);
@@ -134,7 +131,7 @@ const CommentList = ({i}) => {
                 dispatch(blockContent({content: comment[i].content}));
                 alert('Blocked.');
                 setBlock(false);
-              }              
+              }
             }
             }>block</button>
           </BlockBox>

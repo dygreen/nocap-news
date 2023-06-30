@@ -4,7 +4,9 @@
 - 댓글
 - 즐겨찾기
 */
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import {combineReducers, configureStore, createSlice} from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import {persistReducer} from 'redux-persist';
 
 // menu: 메인 페이지 메뉴 모달창 컨트롤 + 카테고리 탭
 const menu = createSlice({
@@ -46,7 +48,6 @@ const news = createSlice({
   },
 });
 
-
 // comment: 댓글 데이터 추가
 const comment = createSlice({
   name : 'comment',
@@ -60,7 +61,7 @@ const comment = createSlice({
       let copy = [...state];
       let same = copy.findIndex(a => a.content === action.payload.content); // content가 같으면 해당 index을 남김
 
-      if ( action.payload.content == '' ){ // 공백 검사
+      if ( action.payload.content.trim() === '' ){ // 공백 검사
         alert('Please enter your details.');
       } else if ( same >= 0 ){ // 중복인 경우 : 중복 알림
         alert('Your comment has already been registered.');
@@ -68,7 +69,6 @@ const comment = createSlice({
         copy.unshift(action.payload);
         return copy
       }
-
     },
     blockContent(state, action){ // 댓글: 신고/차단
       let copy = [...state];
@@ -78,7 +78,6 @@ const comment = createSlice({
     },
   },
 });
-
 
 // bookmark: 즐겨찾기 데이터
 const bookmark = createSlice({
@@ -116,7 +115,6 @@ const bookmark = createSlice({
         state.unshift(action.payload);
         return state
       }
-
     },
     removeContent(state, action){ // 아이템 삭제
       let remove = state[action.payload.i].list.filter(a => a.published !== action.payload.published); // list 데이터 삭제
@@ -132,14 +130,22 @@ const bookmark = createSlice({
   },
 });
 
-export default configureStore({
-  reducer: {
-    menu : menu.reducer,
-    news : news.reducer,
-    comment : comment.reducer,
-    bookmark : bookmark.reducer,
-  }
-});
+const reducers = combineReducers({
+  menu : menu.reducer,
+  news : news.reducer,
+  comment : comment.reducer,
+  bookmark : bookmark.reducer,
+})
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['menu', 'news', 'comment', 'bookmark']
+}
+
+export const store = configureStore({
+  reducer: persistReducer(persistConfig, reducers)
+})
 
 export let { toggleMenu , settingCategory} = menu.actions;
 export let { newsData, newsIdSet } = news.actions;

@@ -1,8 +1,8 @@
 import React, { lazy, Suspense } from 'react';
-import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.js';
 import CommentAll from './pages/CommentAll.js';
+import './App.css';
 
 const DetailNews = lazy(() => import('./pages/DetailNews.js'));
 const MyNews = lazy(() => import('./pages/MyNews.js'));

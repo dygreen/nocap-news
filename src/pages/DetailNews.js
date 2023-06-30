@@ -40,7 +40,7 @@ const Published = styled.div`
 `;
 
 const Img = styled.img`
-  width: 360px;
+  width: 100%;
   height: 240px;
 `;
 
@@ -78,8 +78,7 @@ const AuthorInfo = styled.div`
       font-size: 12px;
       line-height: 17px;
       color: #8C8C8C;
-      margin: 0;
-      margin-left: 8px;
+      margin: 0 0 0 8px;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
@@ -89,9 +88,8 @@ const AuthorInfo = styled.div`
 `;
 
 const Line = styled.div`
-  width: 320px;
   height: 1px;
-  margin-left: 20px;
+  margin: 0 20px;
   background: #d9d9d9;
 `;
 
@@ -107,7 +105,6 @@ const RelatedTitle = styled.div`
 `;
 
 const CommentCount = styled.div`
-  width: 100%;
   margin: 35px 20px 0px;
   font-weight: 700;
   font-size: 16px;
@@ -159,11 +156,14 @@ const RelatedImgTitleBox = styled.div`
 `;
 
 const DetailNews = () => {
+  let navigate = useNavigate();
   let news = useSelector(state => state.news.data);
   let comment = useSelector(state => state.comment);
-  let { id } = useParams(); // 현재 URL에 적힌 모든 파라미터를 object형식으로 저장해주는 함수
-  let clickedNews = news.find(data => data.source.id == id); // 현재 URL의 /:id에 적힌 값과 데이터의 id 값이 같은지 비교, 참이면 변수에 저장함 -> html 표시
-  let navigate = useNavigate();
+
+  // 현재 URL에 적힌 모든 파라미터를 object형식으로 저장해주는 함수
+  let { id } = useParams();
+  // 현재 URL의 /:id에 적힌 값과 데이터의 id 값이 같은지 비교, 참이면 변수에 저장함 -> html 표시
+  let clickedNews = news.find(data => data.source.id === Number(id));
 
   return (
     <DetailContainer>
@@ -196,6 +196,7 @@ const DetailNews = () => {
         <RelatedTitle>{clickedNews.title}</RelatedTitle>
 
         <CommentCount><span>{comment.length}</span>comments</CommentCount>
+
         <InputTemplate /> {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
 
         <CommentDefault> {/* 댓글.... */}
