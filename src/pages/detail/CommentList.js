@@ -5,7 +5,7 @@ import { blockContent } from "../../store.js";
 import styled from 'styled-components';
 
 const CommentBox = styled.div`
-  position: relative;
+  //position: relative;
   margin: 0 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid #d9d9d9;
@@ -35,8 +35,7 @@ const UserInfo = styled.div`
       font-size: 12px;
       line-height: 17px;
       color: #8C8C8C;
-      margin: 0;
-      margin-left: 8px;
+      margin: 0 0 0 8px;
     }
   }
 `;
@@ -83,7 +82,6 @@ const BlockBox = styled.div`
   }
 `;
 
-
 const CommentList = ({i}) => {
   let dispatch = useDispatch();
   let comment = useSelector(state => state.comment);
@@ -91,10 +89,9 @@ const CommentList = ({i}) => {
 
   return (
     <CommentBox>
-
       <UserBox>
         <img src={
-          comment[i].user == 'Dr.Saul Morar'
+          comment[i].user === 'Dr.Saul Morar'
           ? process.env.PUBLIC_URL + '/image/author.png'
           : process.env.PUBLIC_URL + '/image/userface.png'
         }/>
@@ -109,36 +106,38 @@ const CommentList = ({i}) => {
       {/* 신고/차단 버튼 (redux) */}
       <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setBlock(!block)}/>
       {
-        block === true
+        block
         ? (
           <BlockBox>
-            <button style={{borderBottom: '0.3px solid #8c8c8c'}} onClick={() => {
-              if( comment[i].user == 'Dr.Saul Morar' ){
-                alert('This is a non-reportable target.');
-                setBlock(false);
-              } else {
-                dispatch(blockContent({content: comment[i].content}));
-                alert('Reported.');
-                setBlock(false);
-              }
-            }
-            }>report</button>
-            <button onClick={() => {
-              if( comment[i].user == 'Dr.Saul Morar' ){
-                alert('This is an unblockable target.');
-                setBlock(false);
-              } else {
-                dispatch(blockContent({content: comment[i].content}));
-                alert('Blocked.');
-                setBlock(false);
-              }
-            }
-            }>block</button>
+            <button
+              style={{borderBottom: '0.3px solid #8c8c8c'}}
+              onClick={() => {
+                if( comment[i].user === 'Dr.Saul Morar' ){
+                  alert('This is a non-reportable target.');
+                  setBlock(false);
+                } else {
+                  dispatch(blockContent({content: comment[i].content}));
+                  alert('Reported.');
+                  setBlock(false);
+                }
+              }}
+            >report</button>
+            <button
+              onClick={() => {
+                if( comment[i].user === 'Dr.Saul Morar' ){
+                  alert('This is an unblockable target.');
+                  setBlock(false);
+                } else {
+                  dispatch(blockContent({content: comment[i].content}));
+                  alert('Blocked.');
+                  setBlock(false);
+                }
+              }}
+            >block</button>
           </BlockBox>
         )
         : null
       }
-
     </CommentBox>
   );
 }

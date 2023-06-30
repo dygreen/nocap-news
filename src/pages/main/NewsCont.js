@@ -14,7 +14,6 @@ const Img = styled.img`
 `;
 
 const Title = styled.h4`
-  width: 320px;
   margin: 16px 20px 8px;
   font-weight: 700;
   font-size: 14px;
@@ -26,9 +25,8 @@ const Title = styled.h4`
 `;
 
 const Descript = styled.p`
-  width: 320px;
   margin: 8px 20px 16px;
-  font-weigth: 500;
+  font-weight: 500;
   font-size: 12px;
   line-height: 17px;
   display: -webkit-box;
@@ -38,14 +36,12 @@ const Descript = styled.p`
 `;
 
 const Line = styled.div`
-  width: 320px;
   height: 1px;
-  margin-left: 20px;
+  margin: 0 20px;
   background: #d9d9d9;
 `;
 
 const RelatedNews = styled.div`
-  width: 320px;
   margin-top: 10px;
   cursor: pointer;
 `;

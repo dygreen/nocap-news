@@ -1,17 +1,22 @@
 /* (Detail) 댓글 입력창  */
-
 import React from "react";
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import InputTemplate from "./detail/InputTemplate.js";
 import CommentList from "./detail/CommentList.js";
+import Header from "../layout/Header/Header";
 
 const AllContainer = styled.div`
   margin-top: 80px;
-  width: 360px;
   overflow: hidden;
   background: #fff;
+`;
+
+const DetailHeader = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 0;
 `;
 
 const Title = styled.div`
@@ -32,7 +37,6 @@ const Published = styled.div`
 `;
 
 const CommentCount = styled.div`
-  width: 100%;
   margin: 0px 20px;
   font-weight: 700;
   font-size: 16px;
@@ -45,7 +49,6 @@ const CommentCount = styled.div`
 
 const UserBox = styled.div`
   display: flex;
-  width: 100%;
   margin: 8px 20px 0px;
   img{
     width: 40px;
@@ -59,17 +62,18 @@ const UserBox = styled.div`
   }
 `;
 
-
 const CommentAll = () => {
-
   let news = useSelector(state => state.news.data);
-  let { id } = useParams();
-  let clickedNews = news.find(data => data.source.id == id);
   let comment = useSelector(state => state.comment);
+  let { id } = useParams();
+  let clickedNews = news.find(data => data.source.id === Number(id));
 
-
-  return(
+  return (
     <AllContainer>
+      <DetailHeader>
+        <Header/>
+      </DetailHeader>
+
       <Title>{clickedNews.title}</Title>
       <Published>{clickedNews.publishedAt}</Published>
 
@@ -83,13 +87,13 @@ const CommentAll = () => {
       {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
       <InputTemplate />
 
+      {/* Start : 댓글 리스트 */}
       {
         comment.map((a,i) => <CommentList i={i} key={i} />)
       }
-
+      {/* End : 댓글 리스트 */}
     </AllContainer>
   );
-
 }
 
 export default CommentAll;

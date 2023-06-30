@@ -117,7 +117,7 @@ const CommentCount = styled.div`
 
 const CommentDefault = styled.div`
   max-height: calc(131px*3);
-  overflow-y: hidden;
+  overflow-y: scroll;
 `;
 
 const ShowMoreBtn = styled.div`
