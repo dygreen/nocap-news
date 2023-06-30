@@ -4,7 +4,7 @@
 - 댓글
 - 즐겨찾기
 */
-import {combineReducers, configureStore, createSlice} from '@reduxjs/toolkit';
+import {combineReducers, configureStore, createSlice, getDefaultMiddleware} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import {persistReducer} from 'redux-persist';
 
@@ -144,7 +144,11 @@ const persistConfig = {
 }
 
 export const store = configureStore({
-  reducer: persistReducer(persistConfig, reducers)
+  reducer: persistReducer(persistConfig, reducers),
+  // A non-serializable value was detected in an action, in the path: `type` 오류 해결
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 })
 
 export let { toggleMenu , settingCategory} = menu.actions;
