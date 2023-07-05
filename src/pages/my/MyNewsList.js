@@ -1,5 +1,4 @@
 /* (메인-메뉴-즐겨찾기)에 들어갈 컨텐츠 리스트 */
-
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeContent } from "../../store.js";
@@ -7,14 +6,14 @@ import styled from 'styled-components';
 
 const Line = styled.div`
   position: relative;
-  width: 320px;
+  width: 100%;
   height: 1px;
   background: #d9d9d9;
   margin: 8px 0;
 `;
 
 const BookTitle = styled.div`
-  width: 288px;
+  width: 100%;
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
@@ -55,13 +54,10 @@ const BookPulished = styled.div`
   color: #8C8C8C;
 `;
 
-
 const MyNewsList = ({i, num}) => {
-
   let dispatch = useDispatch();
   let bookmark = useSelector(state => state.bookmark);
   let [remove, setRemove] = useState(false);
-
 
   return(
     <>
@@ -69,7 +65,7 @@ const MyNewsList = ({i, num}) => {
         {/* 삭제버튼 (redux) */}
         <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
         {
-          remove === true
+          remove
           ? (
             <RemoveBox
               onClick={() => {
@@ -90,7 +86,6 @@ const MyNewsList = ({i, num}) => {
       <BookPulished>{bookmark[i].list[num].published}</BookPulished>
     </>
   );
-
 }
 
 export default MyNewsList;
