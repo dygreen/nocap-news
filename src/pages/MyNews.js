@@ -4,36 +4,8 @@ import {useNavigate} from "react-router-dom";
 import MyNewsList from "./my/MyNewsList.js";
 import StateBar from "../layout/Header/TopBar/StateBar";
 import styled from 'styled-components';
+import {MyContainer, MyHeader, BackIcon, MyTitle} from "../commonStyle";
 
-const MyNewsContainer = styled.div`
-  width: 100%;
-`;
-
-const MyNewsHeader = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 80px;
-  background: #fff;
-  border-bottom: 2px solid #D7352A;
-  z-index: 300;
-`;
-
-const MenuIcon = styled.img`
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  cursor: pointer;
-`;
-
-const MyNewsTitle = styled.div`
-  height: 56px;
-  line-height: 56px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-`;
 
 const MyNewsContents = styled.div`
   margin: 104px 20px 24px;
@@ -50,20 +22,20 @@ const AddDate = styled.div`
 `;
 
 const MyNews = () => {
-  let navigate = useNavigate();
-  let bookmark = useSelector(state => state.bookmark);
+  const navigate = useNavigate();
+  const bookmark = useSelector(state => state.bookmark);
 
   return (
     <>
-      <MyNewsContainer>
-        <MyNewsHeader>
+      <MyContainer>
+        <MyHeader>
           <StateBar/>
-          <MenuIcon
+          <BackIcon
             src={process.env.PUBLIC_URL + '/image/arrow_back.png'}
             onClick={() => navigate(-1)}
           />
-          <MyNewsTitle>Favorites</MyNewsTitle>
-        </MyNewsHeader>
+          <MyTitle>Favorites</MyTitle>
+        </MyHeader>
 
         <MyNewsContents>
           {
@@ -79,7 +51,7 @@ const MyNews = () => {
             )
           }
         </MyNewsContents>
-      </MyNewsContainer>
+      </MyContainer>
     </>
   );
 }

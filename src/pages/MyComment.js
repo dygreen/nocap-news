@@ -1,23 +1,10 @@
 /* (메인-메뉴-내가 남긴 댓글) 내가 남긴 댓글을 볼 수 있는 페이지 */
-
 import { useSelector } from 'react-redux';
+import {useNavigate} from "react-router-dom";
 import MyCommentList from './my/MyCommentList.js';
+import StateBar from "../layout/Header/TopBar/StateBar";
 import styled from 'styled-components';
-
-const CommentContainer = styled.div`
-  width: 360px;
-  overflow: hidden;
-`;
-
-const MyCommentTitle = styled.div`
-  position: fixed;
-  top: 41px;
-  left: 132px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 1000;
-`;
+import {MyContainer, MyHeader, BackIcon, MyTitle} from "../commonStyle";
 
 const MyCommentContents = styled.div`
   margin: 24px 20px;
@@ -26,18 +13,26 @@ const MyCommentContents = styled.div`
 
 
 const MyComment = () => {
-
-  let comment = useSelector(state => state.comment);
+  const navigate = useNavigate();
+  const comment = useSelector(state => state.comment);
 
   return (
-    <CommentContainer>
-      <MyCommentTitle>My Comments</MyCommentTitle>
+    <MyContainer>
+      <MyHeader>
+        <StateBar/>
+        <BackIcon
+          src={process.env.PUBLIC_URL + '/image/arrow_back.png'}
+          onClick={() => navigate(-1)}
+        />
+        <MyTitle>My Comments</MyTitle>
+      </MyHeader>
+
       <MyCommentContents>
         {
           comment.map((a,i) => <MyCommentList key={i} i={i}/>)
         }
       </MyCommentContents>
-    </CommentContainer>
+    </MyContainer>
   );
 }
 

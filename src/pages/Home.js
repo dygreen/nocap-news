@@ -1,7 +1,7 @@
 /* 메인화면: 뉴스 리스트 보여줌 */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { newsData, newsIdSet } from "../store.js";
+import {newsData, newsIdSet} from "../store.js";
 import axios from "axios";
 import styled from 'styled-components';
 import Header from "../layout/Header/Header";
@@ -69,12 +69,10 @@ const Home = () => {
       </TopFixedItem>
       <div>
         {
-          loading
-          ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
-          : null
+          loading ?? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
         }
         {
-          news?.map((data, idx) => <NewsCont i={data.source.id} key={data.source.id}/>)
+          news.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
         }
       </div>
     </div>
