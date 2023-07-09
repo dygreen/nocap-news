@@ -4,20 +4,6 @@ import styled from 'styled-components';
 import {useDispatch} from "react-redux";
 import {toggleMenu} from "../../../store";
 
-const TopBarBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 56px;
-  position: relative;
-  background: #fff;
-`;
-
-const Logo = styled.img`
-  cursor: pointer;
-`;
-
 const TopBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,5 +17,19 @@ const TopBar = () => {
     </TopBarBox>
   );
 }
+
+const TopBarBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+  position: relative;
+  background: #fff;
+`;
+
+const Logo = styled.img`
+  cursor: pointer;
+`;
 
 export default TopBar;

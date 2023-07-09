@@ -6,35 +6,43 @@ import { useParams } from "react-router-dom";
 import InputTemplate from "./detail/InputTemplate.js";
 import CommentList from "./detail/CommentList.js";
 import Header from "../layout/Header/Header";
+import {HeaderWrapper, ContentsWrapper, DetailTitle, Published} from "../commonStyle";
 
-const AllContainer = styled.div`
-  margin-top: 80px;
-  overflow: hidden;
-  background: #fff;
-`;
+const CommentAll = () => {
+  let news = useSelector(state => state.news.data);
+  let comment = useSelector(state => state.comment);
+  let { id } = useParams();
+  let clickedNews = news.find(data => data.source.id === Number(id));
 
-const DetailHeader = styled.div`
-  width: 100%;
-  position: fixed;
-  top: 0;
-`;
+  return (
+    <>
+      <HeaderWrapper>
+        <Header/>
+      </HeaderWrapper>
 
-const Title = styled.div`
-  margin: 0px 20px 8px;
-  padding-top: 24px;
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 36px;
-  letter-spacing: -0.3px;
-`;
+      <ContentsWrapper>
+        <DetailTitle>{clickedNews.title}</DetailTitle>
+        <Published>{clickedNews.publishedAt}</Published>
 
-const Published = styled.div`
-  margin: 0px 20px 24px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 17px;
-  color: #8C8C8C;
-`;
+        <CommentCount><span>{comment.length}</span>개의 댓글</CommentCount>
+
+        <UserBox>
+          <img src={process.env.PUBLIC_URL + '/image/author.png'} alt={clickedNews.title}/>
+          <p>Dr.Saul Morar</p>
+        </UserBox>
+
+        {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
+        <InputTemplate/>
+
+        {/* Start : 댓글 리스트 */}
+        {
+          comment.map((a, i) => <CommentList i={i} key={i}/>)
+        }
+        {/* End : 댓글 리스트 */}
+      </ContentsWrapper>
+    </>
+  );
+}
 
 const CommentCount = styled.div`
   margin: 0px 20px;
@@ -61,39 +69,5 @@ const UserBox = styled.div`
     margin: 0px 8px;
   }
 `;
-
-const CommentAll = () => {
-  let news = useSelector(state => state.news.data);
-  let comment = useSelector(state => state.comment);
-  let { id } = useParams();
-  let clickedNews = news.find(data => data.source.id === Number(id));
-
-  return (
-    <AllContainer>
-      <DetailHeader>
-        <Header/>
-      </DetailHeader>
-
-      <Title>{clickedNews.title}</Title>
-      <Published>{clickedNews.publishedAt}</Published>
-
-      <CommentCount><span>{comment.length}</span>개의 댓글</CommentCount>
-
-      <UserBox>
-        <img src={process.env.PUBLIC_URL + '/image/author.png'}/>
-        <p>Dr.Saul Morar</p>
-      </UserBox>
-
-      {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
-      <InputTemplate />
-
-      {/* Start : 댓글 리스트 */}
-      {
-        comment.map((a,i) => <CommentList i={i} key={i} />)
-      }
-      {/* End : 댓글 리스트 */}
-    </AllContainer>
-  );
-}
 
 export default CommentAll;

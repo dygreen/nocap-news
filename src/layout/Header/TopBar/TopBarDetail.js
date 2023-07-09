@@ -4,38 +4,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import styled from 'styled-components';
 import TopBar from "./TopBar";
 import { bookmarking } from "../../../store";
-
-const TopFixedItem = styled.div`
-  width: 100%;
-  height: 56px;
-  background: #fff;
-  border-bottom: 2px solid #D7352A;
-  z-index: 300;
-`;
-
-const BackIcon = styled.img`
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  cursor: pointer;
-`;
-
-const CommentIcon = styled.img`
-  position: absolute;
-  top: 40px;
-  right: 56px;
-  cursor: pointer;
-`;
-
-const BookMarkIcon = styled.img`
-  position: absolute;
-  top: 40px;
-  right: 20px;
-  cursor: pointer;
-`;
+import styled from 'styled-components';
+import {BackIcon} from "../../../commonStyle";
 
 // localStorage : setIcon 조정
 const jsonLocalStorage = {
@@ -52,15 +24,15 @@ const jsonLocalStorage = {
 
 
 const TopBarDetail = () => {
-  let navigate = useNavigate();
-  let dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  let news = useSelector(state => state.news.data);
-  let { id } = useParams();
-  let clickedNews = news.find(data => data.source.id == id);
+  const news = useSelector(state => state.news.data);
+  const { id } = useParams();
+  const clickedNews = news.find(data => data.source.id === Number(id));
 
-  let [icon, setIcon] = useState(false); // 즐겨찾기 아이콘
-  let [bookList, setBookList] = useState(() => { // localStorage 값 가져오기
+  const [icon, setIcon] = useState(false); // 즐겨찾기 아이콘
+  const [bookList, setBookList] = useState(() => { // localStorage 값 가져오기
     return jsonLocalStorage.getItem('newsId') || []
   });
 
@@ -140,10 +112,31 @@ const TopBarDetail = () => {
 
       </TopFixedItem>
 
-      <Outlet/> {/* 서브 컴포넌트 표기할 곳 */}
+      {/*<Outlet/> /!* 서브 컴포넌트 표기할 곳 *!/*/}
     </>
   );
-
 }
+
+const TopFixedItem = styled.div`
+  width: 100%;
+  height: 56px;
+  background: #fff;
+  border-bottom: 2px solid #D7352A;
+  z-index: 300;
+`;
+
+const CommentIcon = styled.img`
+  position: absolute;
+  top: 40px;
+  right: 56px;
+  cursor: pointer;
+`;
+
+const BookMarkIcon = styled.img`
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  cursor: pointer;
+`;
 
 export default TopBarDetail;

@@ -3,9 +3,60 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { blockContent } from "../../store.js";
 import styled from 'styled-components';
+import {MoreBtn} from "../../commonStyle";
+
+const CommentList = ({i}) => {
+  const dispatch = useDispatch();
+  const comment = useSelector(state => state.comment);
+  const [block, setBlock] = useState(false);
+
+  // 신고/차단 데이터 컨트롤
+  const fnSetBlock = ($value) => {
+    const warnMsg = $value === 'report' ? 'a non-reportable' : 'an unblockable';
+    const successMsg = $value === 'report' ? 'Reported.' : 'Blocked.';
+
+    if (comment[i].user === 'Dr.Saul Morar') {
+      alert(`This is ${warnMsg} target.`);
+      setBlock(false);
+    } else {
+      dispatch(blockContent({content: comment[i].content}));
+      alert(`${successMsg}`);
+      setBlock(false);
+    }
+  }
+
+  return (
+    <CommentBox>
+      <UserBox>
+        <img src={
+          comment[i].user === 'Dr.Saul Morar'
+          ? process.env.PUBLIC_URL + '/image/author.png'
+          : process.env.PUBLIC_URL + '/image/userface.png'
+        } alt={comment[i].user}/>
+        <UserInfo>
+          <p>{comment[i].user}</p>
+          <p>{comment[i].date}</p>
+        </UserInfo>
+      </UserBox>
+
+      <UserComment>{comment[i].content}</UserComment>
+
+      {/* 신고/차단 버튼 (redux) */}
+      <MoreBtnCon src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setBlock(!block)}/>
+      {
+        block
+          ? <BlockBox>
+            <button onClick={() => fnSetBlock('report')}>report</button>
+            <button onClick={() => fnSetBlock('block')}>block</button>
+          </BlockBox>
+        : null
+      }
+    </CommentBox>
+  );
+}
 
 const CommentBox = styled.div`
-  //position: relative;
+  position: relative;
   margin: 0 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid #d9d9d9;
@@ -52,11 +103,8 @@ const UserComment = styled.p`
   overflow: hidden;
 `;
 
-const MoreBtn = styled.img`
-  position: absolute;
+const MoreBtnCon = styled(MoreBtn)`
   top: 20px;
-  right: 10px;
-  cursor: pointer;
 `;
 
 const BlockBox = styled.div`
@@ -67,7 +115,7 @@ const BlockBox = styled.div`
   height: 44px;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
   border-radius: 2px;
-  button{
+  button {
     display: flex;
     flex-direction: column;
     width: 43px;
@@ -79,67 +127,10 @@ const BlockBox = styled.div`
     line-height: 22px;
     color: #8C8C8C;
     cursor: pointer;
+    &:first-of-type {
+      border-bottom: 0.3px solid #8c8c8c;
+    }
   }
 `;
-
-const CommentList = ({i}) => {
-  let dispatch = useDispatch();
-  let comment = useSelector(state => state.comment);
-  let [block, setBlock] = useState(false);
-
-  return (
-    <CommentBox>
-      <UserBox>
-        <img src={
-          comment[i].user === 'Dr.Saul Morar'
-          ? process.env.PUBLIC_URL + '/image/author.png'
-          : process.env.PUBLIC_URL + '/image/userface.png'
-        }/>
-        <UserInfo>
-          <p>{comment[i].user}</p>
-          <p>{comment[i].date}</p>
-        </UserInfo>
-      </UserBox>
-
-      <UserComment>{comment[i].content}</UserComment>
-
-      {/* 신고/차단 버튼 (redux) */}
-      <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setBlock(!block)}/>
-      {
-        block
-        ? (
-          <BlockBox>
-            <button
-              style={{borderBottom: '0.3px solid #8c8c8c'}}
-              onClick={() => {
-                if( comment[i].user === 'Dr.Saul Morar' ){
-                  alert('This is a non-reportable target.');
-                  setBlock(false);
-                } else {
-                  dispatch(blockContent({content: comment[i].content}));
-                  alert('Reported.');
-                  setBlock(false);
-                }
-              }}
-            >report</button>
-            <button
-              onClick={() => {
-                if( comment[i].user === 'Dr.Saul Morar' ){
-                  alert('This is an unblockable target.');
-                  setBlock(false);
-                } else {
-                  dispatch(blockContent({content: comment[i].content}));
-                  alert('Blocked.');
-                  setBlock(false);
-                }
-              }}
-            >block</button>
-          </BlockBox>
-        )
-        : null
-      }
-    </CommentBox>
-  );
-}
 
 export default CommentList;

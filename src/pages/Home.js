@@ -1,27 +1,13 @@
 /* 메인화면: 뉴스 리스트 보여줌 */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {newsData, newsIdSet} from "../store.js";
+import {newsData, newsIdSet, toggleMenu} from "../store.js";
 import axios from "axios";
 import styled from 'styled-components';
 import Header from "../layout/Header/Header";
 import NewsCont from "./main/NewsCont.js";
 import CategoryTab from "./main/CategoryTab.js";
-
-const TopFixedItem = styled.div`
-  position: sticky;
-  top: 0;
-  left: 0;
-  background: #fff;
-  z-index: 300;
-`;
-
-const LoadingMsg = styled.p`
-  width: 100%;
-  text-align: center;
-  margin: 0;
-  padding: 10px;
-`;
+import {HeaderWrapper, ContentsWrapper} from "../commonStyle";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -44,40 +30,51 @@ const Home = () => {
         }
       }
 
-      await axios(option)
-        .then((res) => {
-          // redux로 결과 전달
-          const JsonData = res.data.articles;
-          dispatch(newsData(JsonData));
-          dispatch(newsIdSet(JsonData));
-        })
-        .catch((err) => {
-          console.log('axios err : ', err)
-        })
+      try {
+        const res = await axios(option)
+        // redux로 결과 전달
+        const JsonData = res.data.articles;
+        dispatch(newsData(JsonData));
+        dispatch(newsIdSet(JsonData));
 
-      setLoading(false); // 받아오기 완료/실패
+        setLoading(false); // 받아오기 완료
+      }
+      catch (err){
+        console.log('오류가 발생했습니다.');
+      }
+
     }
 
     fetchData();
   },[category]);
 
+  useEffect(() => {
+    dispatch(toggleMenu(true));
+  },[])
+
   return(
     <div className="row">
-      <TopFixedItem>
+      <HeaderWrapper>
         <Header/>
         <CategoryTab/>
-      </TopFixedItem>
-      <div>
+      </HeaderWrapper>
+
+      <ContentsWrapper>
         {
-          loading ?? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
+          loading
+            ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
+            : news.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
         }
-        {
-          news.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
-        }
-      </div>
+      </ContentsWrapper>
     </div>
   );
 }
 
+const LoadingMsg = styled.p`
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+`;
 
 export default Home;

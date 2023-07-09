@@ -4,11 +4,6 @@ import StateBar from "./TopBar/StateBar";
 import TopBarMain from "./TopBar/TopBarMain";
 import TopBarDetail from "./TopBar/TopBarDetail";
 
-const HeaderWrap = styled.div`
-  width: 100%;
-  background: #fff;
-`;
-
 const Header = () => {
   const location = useLocation();
 
@@ -27,5 +22,10 @@ const Header = () => {
     </HeaderWrap>
   );
 }
+
+const HeaderWrap = styled.div`
+  width: 100%;
+  background: #fff;
+`;
 
 export default Header

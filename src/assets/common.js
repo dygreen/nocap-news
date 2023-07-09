@@ -11,27 +11,3 @@ export const ScrollToTop = () => {
 
   return null;
 }
-
-// LocalStorage
-export const Data = {
-  set: ($name, $value) => {
-    const value = typeof $value === 'object' ? JSON.stringify($value) : typeof $value === 'boolean' ? $value.toString() : $value
-
-    window.localStorage.setItem($name, value)
-  },
-  get: ($name) => {
-    try {
-      const data = window.localStorage.getItem($name)
-
-      return data !== 'undefined' && data !== null ? JSON.parse(data) : data
-    } catch (e) {
-      return window.localStorage.getItem($name)
-    }
-  },
-  remove: ($name) => {
-    window.localStorage.removeItem($name)
-  },
-  clear: () => {
-    window.localStorage.clear()
-  }
-}

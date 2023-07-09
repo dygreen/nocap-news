@@ -4,12 +4,40 @@ import {useNavigate} from "react-router-dom";
 import MyNewsList from "./my/MyNewsList.js";
 import StateBar from "../layout/Header/TopBar/StateBar";
 import styled from 'styled-components';
-import {MyContainer, MyHeader, BackIcon, MyTitle} from "../commonStyle";
+import {MyContainer, MyContents, MyHeader, BackIcon, MyTitle} from "../commonStyle";
 
+const MyNews = () => {
+  const navigate = useNavigate();
+  const bookmark = useSelector(state => state.bookmark);
 
-const MyNewsContents = styled.div`
-  margin: 104px 20px 24px;
-`;
+  return (
+    <MyContainer>
+      <MyHeader>
+        <StateBar/>
+        <BackIcon
+          src={process.env.PUBLIC_URL + '/image/arrow_back.png'}
+          onClick={() => navigate(-1)}
+        />
+        <MyTitle>Favorites</MyTitle>
+      </MyHeader>
+
+      <MyContents>
+        {
+          bookmark.map((data, idx) =>
+            <>
+              <AddDate key={`${idx}-${data.date}`}>{bookmark[idx].date}</AddDate>
+              {
+                bookmark[idx].list.map((item, num) =>
+                  <MyNewsList num={num} i={idx} key={item.title}/>
+                )
+              }
+            </>
+          )
+        }
+      </MyContents>
+    </MyContainer>
+  );
+}
 
 const AddDate = styled.div`
   font-weight: 700;
@@ -20,40 +48,5 @@ const AddDate = styled.div`
   margin-bottom: 8px;
   margin-top: 32px;
 `;
-
-const MyNews = () => {
-  const navigate = useNavigate();
-  const bookmark = useSelector(state => state.bookmark);
-
-  return (
-    <>
-      <MyContainer>
-        <MyHeader>
-          <StateBar/>
-          <BackIcon
-            src={process.env.PUBLIC_URL + '/image/arrow_back.png'}
-            onClick={() => navigate(-1)}
-          />
-          <MyTitle>Favorites</MyTitle>
-        </MyHeader>
-
-        <MyNewsContents>
-          {
-            bookmark.map((data, idx) =>
-              <>
-                <AddDate key={`${idx}-${data.date}`}>{bookmark[idx].date}</AddDate>
-                {
-                  bookmark[idx].list.map((item, num) =>
-                    <MyNewsList num={num} i={idx} key={item.title}/>
-                  )
-                }
-              </>
-            )
-          }
-        </MyNewsContents>
-      </MyContainer>
-    </>
-  );
-}
 
 export default MyNews;

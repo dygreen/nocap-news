@@ -5,13 +5,6 @@ import styled from 'styled-components';
 import TopBar from "./TopBar.js";
 import Menu from "../../../pages/main/Menu";
 
-const MenuIcon = styled.img`
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  cursor: pointer;
-`;
-
 const TopBarMain = () => {
   const dispatch = useDispatch();
   const menuFlag = useSelector(state => state.menu.menuFlag);
@@ -42,5 +35,12 @@ const TopBarMain = () => {
     </>
   );
 }
+
+const MenuIcon = styled.img`
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  cursor: pointer;
+`;
 
 export default TopBarMain;

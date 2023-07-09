@@ -3,14 +3,7 @@ import { useSelector } from 'react-redux';
 import {useNavigate} from "react-router-dom";
 import MyCommentList from './my/MyCommentList.js';
 import StateBar from "../layout/Header/TopBar/StateBar";
-import styled from 'styled-components';
-import {MyContainer, MyHeader, BackIcon, MyTitle} from "../commonStyle";
-
-const MyCommentContents = styled.div`
-  margin: 24px 20px;
-  margin-top: 104px;
-`;
-
+import {MyContainer, MyContents, MyHeader, BackIcon, MyTitle} from "../commonStyle";
 
 const MyComment = () => {
   const navigate = useNavigate();
@@ -27,11 +20,11 @@ const MyComment = () => {
         <MyTitle>My Comments</MyTitle>
       </MyHeader>
 
-      <MyCommentContents>
+      <MyContents>
         {
           comment.map((a,i) => <MyCommentList key={i} i={i}/>)
         }
-      </MyCommentContents>
+      </MyContents>
     </MyContainer>
   );
 }

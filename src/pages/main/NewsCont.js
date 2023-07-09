@@ -1,16 +1,45 @@
 /* (메인) 뉴스 컨텐츠 */
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+import {ImgWrapper, Line} from "../../commonStyle";
+
+const NewsCont = ({i}) => {
+  let news = useSelector(state => state.news.data);
+  let navigate = useNavigate();
+
+  return (
+    <>
+      <NewsItem onClick={() => { navigate('/detail/'+news[i].source.id) }}>
+        <ImgWrapper>
+          <img src={
+            news[i].image === null
+            ? process.env.PUBLIC_URL + '/image/default_img.png'
+            : news[i].image
+          } alt={news[i].title}/>
+        </ImgWrapper>
+        <Title>{news[i].title}</Title>
+        <Descript>{news[i].description}</Descript>
+      </NewsItem>
+
+      <Line />
+
+      <RelatedNews>
+        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
+      </RelatedNews>
+
+      <Line />
+
+      <RelatedNews lastItem={true}>
+        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
+      </RelatedNews>
+    </>
+  );
+}
 
 const NewsItem = styled.div`
   width: 100%;
   cursor: pointer;
-`;
-
-const Img = styled.img`
-  width: inherit;
-  height: 240px;
 `;
 
 const Title = styled.h4`
@@ -35,50 +64,18 @@ const Descript = styled.p`
   overflow: hidden;
 `;
 
-const Line = styled.div`
-  height: 1px;
-  margin: 0 20px;
-  background: #d9d9d9;
-`;
-
 const RelatedNews = styled.div`
   margin-top: 10px;
   cursor: pointer;
+  ${props =>
+  props.lastItem &&
+  css`
+      padding-bottom: 32px;
+    `}
 `;
 
 const RelatedTitle = styled(Title)`
   margin: 11px 20px;
 `;
-
-const NewsCont = ({i}) => {
-  let news = useSelector(state => state.news.data);
-  let navigate = useNavigate();
-
-  return(
-    <>
-      <NewsItem onClick={() => { navigate('/detail/'+news[i].source.id) }}>
-        <Img src={
-          news[i].image === null
-          ? process.env.PUBLIC_URL + '/image/default_img.png'
-          : news[i].image
-        }/>
-        <Title>{news[i].title}</Title>
-        <Descript>{news[i].description}</Descript>
-      </NewsItem>
-
-      <Line />
-
-      <RelatedNews>
-        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
-      </RelatedNews>
-
-      <Line />
-
-      <RelatedNews style={{paddingBottom: '32px'}}>
-        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
-      </RelatedNews>
-    </>
-  );
-}
 
 export default NewsCont;

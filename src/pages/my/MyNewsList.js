@@ -3,41 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeContent } from "../../store.js";
 import styled from 'styled-components';
-import {MyContentsTitle, MyDate} from "../../commonStyle";
-
-const Line = styled.div`
-  position: relative;
-  width: 100%;
-  height: 1px;
-  background: #d9d9d9;
-  margin: 8px 0;
-`;
-
-
-
-const MoreBtn = styled.img`
-  position: absolute;
-  top: 11px;
-  right: 10px;
-  cursor: pointer;
-`;
-
-const RemoveBox = styled.div`
-  position: absolute;
-  top: 32px;
-  right: 0px;
-  width: 43px;
-  //height: px;
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
-  border-radius: 2px;
-  background: #F0F0F0;
-  color: #8C8C8C;
-  font-size: 12px;
-  text-align: center;
-  line-height: 22px;
-  cursor: pointer;
-`;
-
+import {MyContentsTitle, MyDate, MoreBtn} from "../../commonStyle";
 
 const MyNewsList = ({i, num}) => {
   let dispatch = useDispatch();
@@ -48,10 +14,9 @@ const MyNewsList = ({i, num}) => {
     <>
       <Line>
         {/* 삭제버튼 (redux) */}
-        <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
+        <MoreBtnCon src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
         {
-          remove
-          ? (
+          remove ??
             <RemoveBox
               onClick={() => {
                 dispatch(removeContent({
@@ -63,8 +28,6 @@ const MyNewsList = ({i, num}) => {
                 setRemove(false);
               }}
             >delete</RemoveBox>
-          )
-          : null
         }
       </Line>
       <MyContentsTitle mynews={true}>{bookmark[i].list[num].title}</MyContentsTitle>
@@ -72,5 +35,32 @@ const MyNewsList = ({i, num}) => {
     </>
   );
 }
+
+const Line = styled.div`
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: #d9d9d9;
+  margin: 8px 0;
+`;
+
+const MoreBtnCon = styled(MoreBtn)`
+  top: 11px;
+`;
+
+const RemoveBox = styled.div`
+  position: absolute;
+  top: 32px;
+  right: 0px;
+  width: 43px;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  background: #F0F0F0;
+  color: #8C8C8C;
+  font-size: 12px;
+  text-align: center;
+  line-height: 22px;
+  cursor: pointer;
+`;
 
 export default MyNewsList;

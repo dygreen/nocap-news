@@ -1,6 +1,13 @@
 /* (App) 최상단 상태 바 */
-
 import styled from 'styled-components';
+
+const StateBar = () => {
+  return(
+    <StateBarBox>
+      <State src={process.env.PUBLIC_URL + '/image/state.png'}/>
+    </StateBarBox>
+  );
+}
 
 const StateBarBox = styled.div`
   width: 100%;
@@ -13,13 +20,5 @@ const State = styled.img`
   top: 7px;
   right: 8px;
 `;
-
-const StateBar = () => {
-  return(
-    <StateBarBox>
-      <State src={process.env.PUBLIC_URL + '/image/state.png'}/>
-    </StateBarBox>
-  );
-}
 
 export default StateBar;

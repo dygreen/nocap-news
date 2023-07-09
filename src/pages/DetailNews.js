@@ -6,43 +6,89 @@ import { useParams, useNavigate } from "react-router-dom";
 import Header from "../layout/Header/Header";
 import CommentList from './detail/CommentList.js';
 import InputTemplate from "./detail/InputTemplate.js";
+import {ImgWrapper, HeaderWrapper, ContentsWrapper, Line, DetailTitle, Published} from "../commonStyle";
 
-const DetailContainer = styled.div`
-  width: 100%;
-  overflow: hidden;
-`;
+const DetailNews = () => {
+  let navigate = useNavigate();
+  let news = useSelector(state => state.news.data);
+  let comment = useSelector(state => state.comment);
 
-const DetailHeader = styled.div`
-  width: 100%;
-  position: fixed;
-  top: 0;
-`;
+  // 현재 URL에 적힌 모든 파라미터를 object형식으로 저장해주는 함수
+  let { id } = useParams();
+  // 현재 URL의 /:id에 적힌 값과 데이터의 id 값이 같은지 비교, 참이면 변수에 저장함 -> html 표시
+  let clickedNews = news.find(data => data.source.id === Number(id));
 
-const DetailCont = styled.div`
-  margin-top: 80px;
-`;
+  return (
+    <>
+      <HeaderWrapper>
+        <Header/>
+      </HeaderWrapper>
 
-const Title = styled.div`
-  margin: 0px 20px 8px;
-  padding-top: 24px;
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 36px;
-  letter-spacing: -0.3px;
-`;
+      <ContentsWrapper>
+        <DetailTitle>{clickedNews.title}</DetailTitle>
+        <Published>{clickedNews.publishedAt}</Published>
 
-const Published = styled.div`
-  margin: 0px 20px 24px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 17px;
-  color: #8C8C8C;
-`;
+        <ImgWrapper>
+          <img src={
+            clickedNews.image == null
+            ? process.env.PUBLIC_URL + '/image/default_img.png'
+            : clickedNews.image
+          } alt={clickedNews.title}/>
+        </ImgWrapper>
 
-const Img = styled.img`
-  width: 100%;
-  height: 240px;
-`;
+        <Url>{clickedNews.url}</Url>
+
+        <Descript>{clickedNews.description}</Descript>
+
+        <AuthorBox>
+          <img src={process.env.PUBLIC_URL + '/image/userface.png'} alt="user"/>
+          <AuthorInfo>
+            <p>{clickedNews.source.name}</p>
+            <p>{clickedNews.source.url}</p>
+          </AuthorInfo>
+        </AuthorBox>
+
+        <Line />
+        <RelatedTitle>{clickedNews.title}</RelatedTitle>
+        <Line />
+        <RelatedTitle>{clickedNews.title}</RelatedTitle>
+
+        <CommentCount><span>{comment.length}</span>comments</CommentCount>
+
+        <InputTemplate /> {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
+
+        <CommentDefault> {/* 댓글.... */}
+          {
+            comment.map((a,i) => <CommentList i={i} key={i} />)
+          }
+        </CommentDefault>
+
+        {/* 더보기를 누르면 댓글 페이지로 이동 */}
+        <ShowMoreBtn>
+          <p onClick={() => navigate(`/detail/${id}/comment`)}>MORE &gt;</p>
+        </ShowMoreBtn>
+
+        {/* 관련 뉴스 + 이미지 */}
+        <Line style={{marginTop: "24px"}}/>
+        <RelatedImgTitleBox>
+          <img src={clickedNews.image}  alt={clickedNews.title}/>
+          <p>{clickedNews.title}</p>
+        </RelatedImgTitleBox>
+        <Line />
+        <RelatedImgTitleBox>
+          <img src={clickedNews.image} />
+          <p>{clickedNews.title}</p>
+        </RelatedImgTitleBox>
+
+        <Line />
+        <RelatedTitle>{clickedNews.title}</RelatedTitle>
+        <Line />
+        <RelatedTitle style={{marginBottom: "90px"}}>{clickedNews.title}</RelatedTitle>
+
+      </ContentsWrapper>
+    </>
+  );
+}
 
 const Url = styled(Published)`
   text-align: center;
@@ -85,12 +131,6 @@ const AuthorInfo = styled.div`
       overflow: hidden;
     }
   }
-`;
-
-const Line = styled.div`
-  height: 1px;
-  margin: 0 20px;
-  background: #d9d9d9;
 `;
 
 const RelatedTitle = styled.div`
@@ -154,82 +194,5 @@ const RelatedImgTitleBox = styled.div`
     overflow: hidden;
   }
 `;
-
-const DetailNews = () => {
-  let navigate = useNavigate();
-  let news = useSelector(state => state.news.data);
-  let comment = useSelector(state => state.comment);
-
-  // 현재 URL에 적힌 모든 파라미터를 object형식으로 저장해주는 함수
-  let { id } = useParams();
-  // 현재 URL의 /:id에 적힌 값과 데이터의 id 값이 같은지 비교, 참이면 변수에 저장함 -> html 표시
-  let clickedNews = news.find(data => data.source.id === Number(id));
-
-  return (
-    <DetailContainer>
-      <DetailHeader>
-        <Header/>
-      </DetailHeader>
-
-      <DetailCont>
-        <Title>{clickedNews.title}</Title>
-        <Published>{clickedNews.publishedAt}</Published>
-        <Img src={
-          clickedNews.image == null
-          ? process.env.PUBLIC_URL + '/image/default_img.png'
-          : clickedNews.image
-        }/>
-        <Url>{clickedNews.url}</Url>
-        <Descript>{clickedNews.description}</Descript>
-
-        <AuthorBox>
-          <img src={process.env.PUBLIC_URL + '/image/userface.png'}/>
-          <AuthorInfo>
-            <p>{clickedNews.source.name}</p>
-            <p>{clickedNews.source.url}</p>
-          </AuthorInfo>
-        </AuthorBox>
-
-        <Line />
-        <RelatedTitle>{clickedNews.title}</RelatedTitle>
-        <Line />
-        <RelatedTitle>{clickedNews.title}</RelatedTitle>
-
-        <CommentCount><span>{comment.length}</span>comments</CommentCount>
-
-        <InputTemplate /> {/* 댓글 입력창을 누르면 큰 입력창 등장 */}
-
-        <CommentDefault> {/* 댓글.... */}
-          {
-            comment.map((a,i) => <CommentList i={i} key={i} />)
-          }
-        </CommentDefault>
-
-        {/* 더보기를 누르면 댓글 페이지로 이동 */}
-        <ShowMoreBtn>
-          <p onClick={() => navigate(`/detail/${id}/comment`)}>MORE &gt;</p>
-        </ShowMoreBtn>
-
-        {/* 관련 뉴스 + 이미지 */}
-        <Line style={{marginTop: "24px"}}/>
-        <RelatedImgTitleBox>
-          <img src={clickedNews.image} />
-          <p>{clickedNews.title}</p>
-        </RelatedImgTitleBox>
-        <Line />
-        <RelatedImgTitleBox>
-          <img src={clickedNews.image} />
-          <p>{clickedNews.title}</p>
-        </RelatedImgTitleBox>
-
-        <Line />
-        <RelatedTitle>{clickedNews.title}</RelatedTitle>
-        <Line />
-        <RelatedTitle style={{marginBottom: "90px"}}>{clickedNews.title}</RelatedTitle>
-
-      </DetailCont>
-    </DetailContainer>
-  );
-}
 
 export default DetailNews;

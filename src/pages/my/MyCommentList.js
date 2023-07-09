@@ -3,7 +3,37 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { blockContent } from "../../store.js";
 import styled from 'styled-components';
-import {MyContentsTitle, MyDate} from "../../commonStyle";
+import {MyContentsTitle, MyDate, MoreBtn} from "../../commonStyle";
+
+const MyCommentList = ({i}) => {
+  let dispatch = useDispatch();
+  let comment = useSelector(state => state.comment);
+  let [remove, setRemove] = useState(false);
+
+  return(
+    <>
+      {
+        comment[i].user === 'Dr.Saul Morar'
+          ? <CommentBox>
+            <MyContentsTitle mynews={false}>{comment[i].content}</MyContentsTitle>
+            <MyDate>{comment[i].date}</MyDate>
+
+            {/* 삭제버튼 (redux) */}
+            <MoreBtnCon src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
+            {
+              remove ??
+                <RemoveBox onClick={() => {
+                  dispatch(blockContent({content: comment[i].content}));
+                  setRemove(false);
+                }}
+                >delete</RemoveBox>
+            }
+          </CommentBox>
+          : null
+      }
+    </>
+  );
+}
 
 const CommentBox = styled.div`
   position: relative; 
@@ -13,11 +43,8 @@ const CommentBox = styled.div`
   box-sizing: border-box;
 `;
 
-const MoreBtn = styled.img`
-  position: absolute;
+const MoreBtnCon = styled(MoreBtn)`
   top: 16px;
-  right: 10px;
-  cursor: pointer;
 `;
 
 const RemoveBox = styled.div`
@@ -34,38 +61,5 @@ const RemoveBox = styled.div`
   line-height: 22px;
   cursor: pointer;
 `;
-
-const MyCommentList = ({i}) => {
-  let dispatch = useDispatch();
-  let comment = useSelector(state => state.comment);
-  let [remove, setRemove] = useState(false);
-
-  return(
-    <>
-      {
-        comment[i].user === 'Dr.Saul Morar'
-          ? <CommentBox>
-            <MyContentsTitle mynews={false}>{comment[i].content}</MyContentsTitle>
-            <MyDate>{comment[i].date}</MyDate>
-
-            {/* 삭제버튼 (redux) */}
-            <MoreBtn src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
-            {
-              remove === true
-                ? (
-                  <RemoveBox onClick={() => {
-                    dispatch(blockContent({content: comment[i].content}));
-                    setRemove(false);
-                  }}
-                  >delete</RemoveBox>
-                )
-                : null
-            }
-          </CommentBox>
-          : null
-      }
-    </>
-  );
-}
 
 export default MyCommentList;

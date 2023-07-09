@@ -16,3 +16,5 @@
 * 메인 화면 '메뉴' : 페이지 → 모달창으로 변경
 * 메인 화면 '카테고리 탭' : `localStorage` → `redux` 사용으로 변경
 * 상세 페이지 새로고침 시 화면 표시 안되는 오류 해결 : `redux persist` 사용
+* styled-components : 공통 스타일 따로 관리(commonStyle.js)해 컴포넌트 당 코드 줄임
+* 이미지 16:9 비율로 수정
