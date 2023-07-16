@@ -40,9 +40,8 @@ const Home = () => {
         setLoading(false); // 받아오기 완료
       }
       catch (err){
-        console.log('오류가 발생했습니다.');
+        console.log(err.request.response)
       }
-
     }
 
     fetchData();
