@@ -21,12 +21,14 @@ const MyCommentList = ({i}) => {
             {/* 삭제버튼 (redux) */}
             <MoreBtnCon src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
             {
-              remove ??
-                <RemoveBox onClick={() => {
+              remove
+              ? <RemoveBox
+                onClick={() => {
                   dispatch(blockContent({content: comment[i].content}));
                   setRemove(false);
                 }}
                 >delete</RemoveBox>
+              : null
             }
           </CommentBox>
           : null

@@ -16,18 +16,19 @@ const MyNewsList = ({i, num}) => {
         {/* 삭제버튼 (redux) */}
         <MoreBtnCon src={process.env.PUBLIC_URL + '/image/more_circle.png'} onClick={() => setRemove(!remove)}/>
         {
-          remove ??
-            <RemoveBox
-              onClick={() => {
-                dispatch(removeContent({
-                  published: bookmark[i].list[num].published,
-                  i: i,
-                  num: num,
-                  })
-                );
-                setRemove(false);
-              }}
-            >delete</RemoveBox>
+          remove
+          ? <RemoveBox
+            onClick={() => {
+              dispatch(removeContent({
+                published: bookmark[i].list[num].published,
+                i: i,
+                num: num,
+              })
+            );
+            setRemove(false);
+            }}
+          >delete</RemoveBox>
+          : null
         }
       </Line>
       <MyContentsTitle mynews={true}>{bookmark[i].list[num].title}</MyContentsTitle>
