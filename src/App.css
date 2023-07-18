@@ -2,8 +2,7 @@
 
 .App{
   font-family: 'Noto Sans KR', sans-serif;
-  width: 360px;
-  height: 800px;
+  width: 100%;
 }
 
 .App::-webkit-scrollbar {
@@ -11,7 +10,7 @@
 }
 
 .loading{
-  width: 360px;
+  width: 100%;
   text-align: center;
   margin-left: -15px;
   padding: 10px;

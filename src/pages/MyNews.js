@@ -1,28 +1,43 @@
 /* (메인-메뉴-즐겨찾기) 즐겨찾기 메뉴 클릭시, DetailNews 상단 즐겨찾기 아이콘을 누른 뉴스 제목들을 볼 수 있는 페이지 */
-
 import { useSelector } from "react-redux";
-import MyNewsList from "../components/MyNewsList.js";
+import {useNavigate} from "react-router-dom";
+import MyNewsList from "./my/MyNewsList.js";
+import StateBar from "../layout/Header/TopBar/StateBar";
 import styled from 'styled-components';
+import {MyContainer, MyContents, MyHeader, BackIcon, MyTitle} from "../commonStyle";
 
-const MyNewsContainer = styled.div`
-  width: 360px;
-  overflow: hidden;
-`;
+const MyNews = () => {
+  const navigate = useNavigate();
+  const bookmark = useSelector(state => state.bookmark);
 
-const MyNewTitle = styled.div`
-  position: fixed;
-  top: 41px;
-  left: 150px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 1000;
-`;
+  return (
+    <MyContainer>
+      <MyHeader>
+        <StateBar/>
+        <BackIcon
+          src={process.env.PUBLIC_URL + '/image/arrow_back.png'}
+          onClick={() => navigate(-1)}
+        />
+        <MyTitle>Favorites</MyTitle>
+      </MyHeader>
 
-const MyNewsContents = styled.div`
-  margin: 24px 20px;
-  margin-top: 104px;
-`;
+      <MyContents>
+        {
+          bookmark.map((data, idx) =>
+            <>
+              <AddDate key={`${idx}-${data.date}`}>{bookmark[idx].date}</AddDate>
+              {
+                bookmark[idx].list.map((item, num) =>
+                  <MyNewsList num={num} i={idx} key={item.title}/>
+                )
+              }
+            </>
+          )
+        }
+      </MyContents>
+    </MyContainer>
+  );
+}
 
 const AddDate = styled.div`
   font-weight: 700;
@@ -33,29 +48,5 @@ const AddDate = styled.div`
   margin-bottom: 8px;
   margin-top: 32px;
 `;
-
-
-const MyNews = () => {
-
-  let bookmark = useSelector(state => state.bookmark);
-
-  return (
-    <MyNewsContainer>
-      <MyNewTitle>즐겨찾기</MyNewTitle>
-      <MyNewsContents>
-        {
-          bookmark.map((a,i) => 
-            <>
-              <AddDate key={i}>{bookmark[i].date}</AddDate>
-              {
-                bookmark[i].list.map((a,num) => <MyNewsList num={num} i={i} key={num}/>)
-              }
-            </>
-          )
-        }
-      </MyNewsContents>
-    </MyNewsContainer>
-  );
-}
 
 export default MyNews;
