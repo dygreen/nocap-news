@@ -40,7 +40,7 @@ const Home = () => {
         setLoading(false); // 받아오기 완료
       }
       catch (err){
-        console.log(err.request.response)
+        console.warn(err)
       }
     }
 
@@ -62,7 +62,7 @@ const Home = () => {
         {
           loading
             ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
-            : news.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
+            : news?.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
         }
       </ContentsWrapper>
     </div>
