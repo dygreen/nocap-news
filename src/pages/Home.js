@@ -13,7 +13,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const news = useSelector(state => state.news.data);
   const category = useSelector(state => state.menu.category);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // 뉴스 데이터 불러오기
   useEffect(() => {
@@ -40,7 +40,7 @@ const Home = () => {
         setLoading(false); // 받아오기 완료
       }
       catch (err){
-        console.warn(err)
+        console.warn(err);
       }
     }
 
