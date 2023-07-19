@@ -14,12 +14,12 @@ const Home = () => {
   const news = useSelector(state => state.news.data);
   const category = useSelector(state => state.menu.category);
   const [loading, setLoading] = useState(false);
-
+  
   // 뉴스 데이터 불러오기
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true); // 기사를 받아오는 중
-
+      
       const option = {
         method: "GET",
         url: "https://gnews.io/api/v4/top-headlines",
@@ -29,44 +29,44 @@ const Home = () => {
           token: 'b58e30ef6a2623ef1c207061888987d8'
         }
       }
-
+      
       try {
         const res = await axios(option)
         // redux로 결과 전달
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData));
         dispatch(newsIdSet(JsonData));
-
+        
         setLoading(false); // 받아오기 완료
       }
       catch (err){
         console.warn(err);
       }
     }
-
+    
     fetchData();
   },[category]);
-
+  
   useEffect(() => {
     dispatch(toggleMenu(true));
   },[])
-
-  return news.length > 0 ? (
+  
+  return(
     <div className="row">
       <HeaderWrapper>
         <Header/>
         <CategoryTab/>
       </HeaderWrapper>
-
+      
       <ContentsWrapper>
         {
-          loading
-            ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
-            : news?.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
+          !loading && news.length > 0
+            ? news?.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
+            : <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
         }
       </ContentsWrapper>
     </div>
-  ) : <></>;
+  );
 }
 
 const LoadingMsg = styled.p`

@@ -7,7 +7,11 @@ import {ImgWrapper, Line} from "../../commonStyle";
 const NewsCont = ({i}) => {
   let news = useSelector(state => state.news.data);
   let navigate = useNavigate();
-
+  
+  if (news[i]) {
+    return null;
+  }
+  
   return (
     <>
       <NewsItem onClick={() => { navigate('/detail/'+news[i].source.id) }}>
