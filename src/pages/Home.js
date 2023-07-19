@@ -60,9 +60,9 @@ const Home = () => {
 
       <ContentsWrapper>
         {
-          loading
-            ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
-            : news?.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
+          !loading && news.length > 0
+            ? news?.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
+            : <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
         }
       </ContentsWrapper>
     </div>
