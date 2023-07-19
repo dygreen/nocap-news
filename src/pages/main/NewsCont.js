@@ -8,34 +8,30 @@ const NewsCont = ({i}) => {
   let news = useSelector(state => state.news.data);
   let navigate = useNavigate();
   
-  if (news[i]) {
-    return null;
-  }
-  
   return (
     <>
-      <NewsItem onClick={() => { navigate('/detail/'+news[i].source.id) }}>
+      <NewsItem onClick={() => { navigate('/detail/'+news[i]?.source.id) }}>
         <ImgWrapper>
           <img src={
-            news[i].image === null
+            news[i]?.image === null
             ? process.env.PUBLIC_URL + '/image/default_img.png'
-            : news[i].image
-          } alt={news[i].title}/>
+            : news[i]?.image
+          } alt={news[i]?.title}/>
         </ImgWrapper>
-        <Title>{news[i].title}</Title>
-        <Descript>{news[i].description}</Descript>
+        <Title>{news[i]?.title}</Title>
+        <Descript>{news[i]?.description}</Descript>
       </NewsItem>
 
       <Line />
 
       <RelatedNews>
-        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
+        <RelatedTitle onClick={() => { navigate('/detail/'+news[i]?.source.id) }}>{news[i]?.title}</RelatedTitle>
       </RelatedNews>
 
       <Line />
 
       <RelatedNews lastItem={true}>
-        <RelatedTitle onClick={() => { navigate('/detail/'+news[i].source.id) }}>{news[i].title}</RelatedTitle>
+        <RelatedTitle onClick={() => { navigate('/detail/'+news[i]?.source.id) }}>{news[i]?.title}</RelatedTitle>
       </RelatedNews>
     </>
   );
