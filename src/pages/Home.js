@@ -60,9 +60,12 @@ const Home = () => {
       
       <ContentsWrapper>
         {
-          !loading && news.length > 0 && news[0].source.id === 0
+          loading ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg> : null
+        }
+        {
+          news.length > 0 && news[0].source.id === 0
             ? news.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
-            : <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg>
+            : null
         }
       </ContentsWrapper>
     </div>
