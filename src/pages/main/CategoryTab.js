@@ -60,6 +60,9 @@ const CategoryTab = () => {
 const TabContainer = styled.div`
   width: 100%;
   overflow-x: scroll;
+  border-bottom: 2px solid #D7352A;
+  box-sizing: border-box;
+  background-color: #fff;
   ::-webkit-scrollbar {
     display: none;
   }
@@ -70,9 +73,6 @@ const TabBox = styled.div`
   width: 100%;
   padding-top: 8px;
   padding-left: 20px;
-  border-bottom: 2px solid #D7352A;
-  box-sizing: border-box;
-  background-color: #fff;
 `;
 
 const TabItem = styled.div`
