@@ -68,11 +68,10 @@ const TabContainer = styled.div`
 const TabBox = styled.div`
   display: flex;
   width: 100%;
-  height: 28px;
   padding-top: 8px;
   padding-left: 20px;
   border-bottom: 2px solid #D7352A;
-  box-sizing: content-box;
+  box-sizing: border-box;
   background-color: #fff;
 `;
 
