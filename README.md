@@ -5,7 +5,7 @@
 > - 디자이너 1명, 프론트엔드 1명
 > - 역할) 서비스 기획, 뉴스 API 끌어오기 포함 프론트 구현
 >
-> 주소: https://nocap-news-git-master-dygreen.vercel.app/?vercelToolbarCode=qIoGuR6lN-Kq28l <br>
+> 주소: https://nocap-news.vercel.app/ <br>
 #### _* 자세한 실행과정 정리([노션](https://prickle-turn-785.notion.site/No-cap-News-6ca35527dd5b4cd49716d8243d5df327))_
 
 <br/>
