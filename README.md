@@ -7,7 +7,7 @@
 >
 > 주소: https://nocap-news.vercel.app/ <br>
 > 
-> → 자세한 실행과정 정리([노션](https://prickle-turn-785.notion.site/No-cap-News-6ca35527dd5b4cd49716d8243d5df327))
+> → 자세한 실행과정 정리([노션](https://www.notion.so/dygreen/No-cap-News-b054af11d44c432daeb3a4a2e63de199?pvs=4))
 > 
 > <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=React&logoColor=white">
 
