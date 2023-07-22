@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
 import {persistStore} from "redux-persist";
 import {store} from './store.js'
-import { ScrollToTop } from "./assets/common";
+import { ScrollToTop } from "./assets/ScrollToTop";
 import './index.css';
 
 export const persistor = persistStore(store);
@@ -21,6 +21,6 @@ root.render(
           <App/>
         </BrowserRouter>
       </Provider>
-    </PersistGate>
+    </PersistGate>가
   </React.StrictMode>
 );
