@@ -70,7 +70,6 @@ useEffect(() => {
       // redux로 결과 전달
       const JsonData = res.data.articles;
       dispatch(newsData(JsonData));
-      dispatch(newsIdSet(JsonData));
       
       setLoading(false); // 받아오기 완료
     }
@@ -92,17 +91,16 @@ let news = createSlice({
   },
   reducers : {
     newsData(state, action){ // news 데이터 셋팅
-      if (state.loading === 'first'){ /* 두번째 reducer를 실행하기 전 데이터 값이 있어야 하므로 if문 실행 */
+      if (state.loading === 'first'){ /* 두번째 if문 실행하기 전 데이터 값이 있어야 하므로 첫번째 if문 실행 */
         state.data = action.payload;
         state.loading = 'second'
       }
-    },
-    newsIdSet(state, action){ // detail page를 위한 id값 셋팅
+      // detail page를 위한 id값 셋팅
       if (state.loading === 'second'){
         action.payload.map((a,val) => action.payload[val].source.id = val);
         state.data = action.payload;
       }
-    },
+    }
   },
 });
 ```
