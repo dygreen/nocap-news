@@ -21,6 +21,6 @@ root.render(
           <App/>
         </BrowserRouter>
       </Provider>
-    </PersistGate>가
+    </PersistGate>
   </React.StrictMode>
 );

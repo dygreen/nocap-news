@@ -1,7 +1,7 @@
 /* 메인화면: 뉴스 리스트 보여줌 */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {newsData, newsIdSet, toggleMenu} from "../store.js";
+import {newsData, toggleMenu} from "../store.js";
 import axios from "axios";
 import styled from 'styled-components';
 import Header from "../layout/Header/Header";
@@ -35,8 +35,7 @@ const Home = () => {
         // redux로 결과 전달
         const JsonData = res.data.articles;
         dispatch(newsData(JsonData));
-        dispatch(newsIdSet(JsonData));
-        
+
         setLoading(false); // 받아오기 완료
       }
       catch (err){
@@ -63,7 +62,7 @@ const Home = () => {
           loading ? <LoadingMsg>Loading.. please wait for a moment!</LoadingMsg> : null
         }
         {
-          news.length > 0 && news[0].source.id === 0
+          news.length > 0
             ? news.map((data) => <NewsCont i={data.source.id} key={data.source.id}/>)
             : null
         }
